@@ -32,6 +32,15 @@
       <a href="#background">Background</a>
       <a class="btn-primary topnav-cta" href="https://wa.me/966532572718" target="_blank" rel="noopener">Message</a>
     </div>
+    <button class="topnav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="topnav-mobile" id="navMobile">
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#background">Background</a>
+    <a class="btn-primary" href="https://wa.me/966532572718" target="_blank" rel="noopener">Message on WhatsApp</a>
   </div>
 </nav>
 
@@ -422,6 +431,24 @@
 </footer>
 
 <script>
+// ---------- Mobile nav burger ----------
+(function(){
+  var burger = document.getElementById('navBurger');
+  var mobileMenu = document.getElementById('navMobile');
+  if(!burger || !mobileMenu) return;
+  function setOpen(open){
+    mobileMenu.classList.toggle('open', open);
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  burger.addEventListener('click', function(){
+    setOpen(!mobileMenu.classList.contains('open'));
+  });
+  Array.prototype.forEach.call(mobileMenu.querySelectorAll('a'), function(a){
+    a.addEventListener('click', function(){ setOpen(false); });
+  });
+})();
+
 // ---------- Background parallax ----------
 (function(){
   var layer = document.getElementById('bgLayer');
@@ -469,12 +496,26 @@
   document.addEventListener('mouseenter', function(){ if(active) cad.style.display = 'block'; });
 
   var hotSelector = 'a, button, .tile, .gph, .chip, .app-card, .mini-proj';
+  function checkHotAt(x, y){
+    var el = document.elementFromPoint(x, y);
+    var hot = !!(el && el.closest && el.closest(hotSelector));
+    box.classList.toggle('cad-box-hot', hot);
+  }
   document.addEventListener('mouseover', function(e){
     if(e.target.closest && e.target.closest(hotSelector)) box.classList.add('cad-box-hot');
   });
   document.addEventListener('mouseout', function(e){
     if(e.target.closest && e.target.closest(hotSelector)) box.classList.remove('cad-box-hot');
   });
+  var scrollPending = false;
+  window.addEventListener('scroll', function(){
+    if(!active || scrollPending) return;
+    scrollPending = true;
+    requestAnimationFrame(function(){
+      checkHotAt(lastX, lastY);
+      scrollPending = false;
+    });
+  }, { passive:true });
 })();
 
 // ---------- Side rail scrollspy ----------
