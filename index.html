@@ -248,19 +248,6 @@
           </div>
         </div>
       </div>
-
-      <!-- additional projects -->
-      <div style="margin-top:30px;">
-        <div class="eyebrow">Additional Delivered Project</div>
-        <div class="mini-projects" style="grid-template-columns:1fr; max-width:340px;">
-          <div class="mini-proj">
-            <div class="mp-name">Smith &amp; Nephew Head Office</div>
-            <div class="mp-loc">Business Gate, Riyadh</div>
-            <div class="mp-val">SAR 2,000,000</div>
-            <div class="mp-dates">Feb 2016 – Jun 2016</div>
-          </div>
-        </div>
-      </div>
     </div>
   </article>
 
@@ -458,8 +445,11 @@
   var ticking = false;
   function update(){
     var y = window.scrollY || window.pageYOffset;
-    var shift = Math.max(-60, Math.min(60, y * 0.06));
-    layer.style.transform = 'translateY(' + shift + 'px)';
+    // Continuous drift for the whole page — a clamped linear shift saturates
+    // after ~1000px and goes dead for the rest of a long page, so use a slow
+    // oscillation instead: it keeps gently moving no matter how far you scroll.
+    var shift = Math.sin(y / 900) * 50;
+    layer.style.transform = 'translateY(' + shift.toFixed(1) + 'px)';
     ticking = false;
   }
   window.addEventListener('scroll', function(){
@@ -476,48 +466,52 @@
   var v = document.getElementById('cadV');
   var box = document.getElementById('cadBox');
   if(!cad || !h || !v || !box) return;
-  var active = false, pending = false, lastX = 0, lastY = 0;
-  function render(){
-    h.style.top = lastY + 'px';
-    v.style.left = lastX + 'px';
-    box.style.top = lastY + 'px';
-    box.style.left = lastX + 'px';
-    pending = false;
-  }
-  function onMove(e){
-    if(!active){
-      active = true;
-      cad.style.display = 'block';
-      document.body.classList.add('cad-active');
-    }
-    lastX = e.clientX; lastY = e.clientY;
-    if(!pending){ pending = true; requestAnimationFrame(render); }
-  }
-  window.addEventListener('mousemove', onMove, { passive:true });
-  document.addEventListener('mouseleave', function(){ cad.style.display = 'none'; });
-  document.addEventListener('mouseenter', function(){ if(active) cad.style.display = 'block'; });
-
+  var lastX = window.innerWidth / 2, lastY = window.innerHeight / 2;
   var hotSelector = 'a, button, .tile, .gph, .chip, .app-card, .mini-proj';
+
   function checkHotAt(x, y){
     var el = document.elementFromPoint(x, y);
     var hot = !!(el && el.closest && el.closest(hotSelector));
     box.classList.toggle('cad-box-hot', hot);
   }
+  // Deliberately synchronous, no requestAnimationFrame gating: an rAF-throttled
+  // render was getting silently stuck (and staying stuck) whenever the browser
+  // paused rAF callbacks, which happened often enough to be the reported bug.
+  // These are four style writes plus one elementFromPoint call — cheap enough
+  // to run directly on every event with no risk of a dropped callback wedging it.
+  function render(){
+    h.style.top = lastY + 'px';
+    v.style.left = lastX + 'px';
+    box.style.top = lastY + 'px';
+    box.style.left = lastX + 'px';
+    checkHotAt(lastX, lastY);
+  }
+
+  cad.style.display = 'block';
+  document.body.classList.add('cad-active');
+  render();
+
+  window.addEventListener('mousemove', function(e){
+    lastX = e.clientX; lastY = e.clientY;
+    render();
+  }, { passive:true });
+  document.addEventListener('mouseleave', function(){ cad.style.display = 'none'; });
+  document.addEventListener('mouseenter', function(){ cad.style.display = 'block'; render(); });
+  window.addEventListener('scroll', render, { passive:true });
+
+  // Belt-and-braces resync on focus/visibility return, in case anything else
+  // ever left state stale while the tab was backgrounded.
+  document.addEventListener('visibilitychange', function(){
+    if(!document.hidden) render();
+  });
+  window.addEventListener('focus', render);
+
   document.addEventListener('mouseover', function(e){
     if(e.target.closest && e.target.closest(hotSelector)) box.classList.add('cad-box-hot');
   });
   document.addEventListener('mouseout', function(e){
     if(e.target.closest && e.target.closest(hotSelector)) box.classList.remove('cad-box-hot');
   });
-  var scrollPending = false;
-  window.addEventListener('scroll', function(){
-    if(!active || scrollPending) return;
-    scrollPending = true;
-    requestAnimationFrame(function(){
-      checkHotAt(lastX, lastY);
-      scrollPending = false;
-    });
-  }, { passive:true });
 })();
 
 // ---------- Side rail scrollspy ----------
