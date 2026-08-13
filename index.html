@@ -506,12 +506,14 @@
   });
   window.addEventListener('focus', render);
 
-  document.addEventListener('mouseover', function(e){
-    if(e.target.closest && e.target.closest(hotSelector)) box.classList.add('cad-box-hot');
-  });
-  document.addEventListener('mouseout', function(e){
-    if(e.target.closest && e.target.closest(hotSelector)) box.classList.remove('cad-box-hot');
-  });
+  // checkHotAt() (called from render() above) is the single source of truth
+  // for hot-state — it re-derives it from elementFromPoint on every mousemove,
+  // scroll, focus, and visibility event. There used to be a second, independent
+  // mouseover/mouseout mechanism writing to the same class; native mouseover/
+  // mouseout don't reliably fire when content scrolls under a stationary
+  // cursor, so that second mechanism could disagree with reality and never
+  // gets corrected until the next real pointer move. Removed rather than kept
+  // in sync — one source of truth for this class, not two.
 })();
 
 // ---------- Side rail scrollspy ----------
