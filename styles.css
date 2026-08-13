@@ -110,6 +110,28 @@ a{color:inherit;}
 }
 .chip:hover{ background:rgba(255,255,255,.1); border-color:var(--accent); }
 .chip b{ color:var(--accent-soft); font-family:var(--font-mono); font-weight:600; }
+.chip.on-light{ border-color:var(--line); color:var(--ink); background:var(--surface); box-shadow:var(--shadow); }
+.chip.on-light:hover{ background:var(--surface); border-color:var(--accent); }
+
+/* ---------- CAPABILITIES (Skills / Tools / Applications) ---------- */
+.capabilities{ background:var(--bg); padding:56px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+.capabilities h3{ font-family:var(--font-display); text-transform:uppercase; font-size:14px; letter-spacing:.08em; margin:0 0 14px; color:var(--accent); }
+.capabilities .cap-block{ margin-bottom:36px; margin-top:28px; }
+.capabilities .cap-block:last-child{ margin-bottom:0; }
+
+.app-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:4px; }
+@media (max-width:760px){ .app-grid{ grid-template-columns:1fr; } }
+.app-card{
+  border:1px solid var(--line); border-radius:10px; padding:20px 22px; background:var(--surface);
+  box-shadow:var(--shadow); position:relative; overflow:hidden;
+}
+.app-card::before{
+  content:""; position:absolute; top:0; left:0; width:4px; height:100%; background:var(--accent);
+}
+.app-card .app-icon{ font-size:22px; margin-bottom:8px; display:block; }
+.app-card .app-name{ font-family:var(--font-display); font-weight:800; font-size:15.5px; text-transform:uppercase; margin-bottom:4px; }
+.app-card .app-meta{ font-family:var(--font-mono); font-size:11.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.05em; margin-bottom:10px; }
+.app-card .app-desc{ font-size:14px; color:var(--ink-soft); line-height:1.6; }
 
 /* ---------- STATS STRIP ---------- */
 .stats{ background:var(--surface-2); border-bottom:1px solid var(--line); }
