@@ -40,7 +40,7 @@
     <a href="#experience">Experience</a>
     <a href="#skills">Skills</a>
     <a href="#background">Background</a>
-    <a class="btn-primary" href="https://wa.me/966532572718" target="_blank" rel="noopener">Message on WhatsApp</a>
+    <a class="btn-primary" href="https://wa.me/966532572718" target="_blank" rel="noopener">Message</a>
   </div>
 </nav>
 
@@ -366,7 +366,9 @@
         <div class="tile"><span class="dot"></span>HVAC Systems</div>
         <div class="tile"><span class="dot"></span>CCTV Systems</div>
         <div class="tile"><span class="dot"></span>Security Systems (Turnstiles &amp; Barrier Gates)</div>
-        <div class="tile"><span class="dot"></span>Plumbing &amp; Drainage Networks</div>
+        <div class="tile"><span class="dot"></span>LV Systems</div>
+        <div class="tile"><span class="dot"></span>Low Current Systems</div>
+        <div class="tile"><span class="dot"></span>A/V Systems (Audio/Video)</div>
       </div>
     </div>
 
@@ -374,13 +376,13 @@
       <h3>Systems &amp; Applications Built</h3>
       <div class="app-grid">
         <div class="app-card">
-          <span class="app-icon">🛠️</span>
+          <span class="app-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><line x1="2" y1="8.5" x2="22" y2="8.5" stroke="currentColor" stroke-width="1.6"/><circle cx="5" cy="6.2" r="0.7" fill="currentColor"/><circle cx="7.4" cy="6.2" r="0.7" fill="currentColor"/></svg></span>
           <div class="app-name">Dukan Maintenance Web Portal</div>
           <div class="app-meta">Dukan Retailing Company · 2025</div>
           <div class="app-desc">Directed the design and rollout of an in-house, CAFM-style web application enabling store teams across 180+ sites to log, track, and close maintenance requests digitally — replacing manual, phone-based reporting and giving leadership real-time visibility into response times and recurring issues across the portfolio.</div>
         </div>
         <div class="app-card">
-          <span class="app-icon">🧰</span>
+          <span class="app-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.6"/><path d="M12 2.5v3M12 18.5v3M21.5 12h-3M5.5 12h-3M18.5 5.5l-2.1 2.1M7.6 16.4l-2.1 2.1M18.5 18.5l-2.1-2.1M7.6 7.6L5.5 5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
           <div class="app-name">NADEC In-House Maintenance Application</div>
           <div class="app-meta">NADEC · 2020–2022</div>
           <div class="app-desc">Directed the development of a custom maintenance management application for a 42-site portfolio, digitizing work order tracking, preventive maintenance scheduling, and compliance documentation across maintenance, security, catering, and cleaning/hygiene functions.</div>
@@ -542,46 +544,71 @@
   sections.forEach(function(sec){ obs.observe(sec); });
 })();
 
-// ---------- Animated count-up stats ----------
+// ---------- Animated count-up numbers (site-wide) ----------
 (function(){
-  var nums = document.querySelectorAll('.stat .num');
-  if(!nums.length) return;
-  var parsed = Array.prototype.map.call(nums, function(el){
-    var m = el.textContent.match(/^([^\d]*)([\d,]+)(.*)$/);
+  var nums = document.querySelectorAll('.stat .num, .metric .m-num, .mini-proj .mp-val');
+  if(!nums.length || typeof IntersectionObserver === 'undefined') return;
+  var DURATION = 2600;
+
+  function parseMetric(el){
+    var text = el.textContent;
+    var m = text.match(/^([^\d]*)([\d,]+(?:\.\d+)?)([\s\S]*)$/);
     if(!m) return null;
-    return { el:el, prefix:m[1], target:parseInt(m[2].replace(/,/g,''),10), hasComma:m[2].indexOf(',')>-1, suffix:m[3] };
-  }).filter(Boolean);
+    var prefix = m[1], numStr = m[2], rest = m[3];
+    var hasComma = numStr.indexOf(',') > -1;
+    var decMatch = numStr.match(/\.(\d+)$/);
+    var decimals = decMatch ? decMatch[1].length : 0;
+    var target = parseFloat(numStr.replace(/,/g, ''));
+    var second = null;
+    var arrowMatch = rest.match(/^→(\d+)([\s\S]*)$/);
+    if(arrowMatch){
+      second = { target: parseInt(arrowMatch[1], 10) };
+      rest = arrowMatch[2];
+    }
+    return { el:el, prefix:prefix, target:target, hasComma:hasComma, decimals:decimals, suffix:rest, second:second, animating:false };
+  }
+
+  function formatNum(val, hasComma, decimals){
+    if(decimals > 0){
+      return hasComma ? val.toLocaleString('en-US', { minimumFractionDigits:decimals, maximumFractionDigits:decimals })
+                       : val.toFixed(decimals);
+    }
+    var rounded = Math.round(val);
+    return hasComma ? rounded.toLocaleString('en-US') : String(rounded);
+  }
 
   function animate(item){
-    var duration = 1600, start = null;
+    var start = null;
     function frame(ts){
-      if(start===null) start = ts;
-      var t = Math.min(1, (ts-start)/duration);
-      var eased = t >= 1 ? 1 : 1 - Math.pow(2, -10*t);
-      var val = Math.round(eased * item.target);
-      var numStr = item.hasComma ? val.toLocaleString('en-US') : String(val);
-      item.el.textContent = item.prefix + numStr + item.suffix;
-      if(t < 1) requestAnimationFrame(frame);
+      if(start === null) start = ts;
+      var t = Math.min(1, (ts - start) / DURATION);
+      var eased = t >= 1 ? 1 : 1 - Math.pow(2, -10 * t);
+      var val = eased * item.target;
+      var text = item.prefix + formatNum(val, item.hasComma, item.decimals);
+      if(item.second){
+        text += '→' + Math.round(eased * item.second.target) + item.suffix;
+      } else {
+        text += item.suffix;
+      }
+      item.el.textContent = text;
+      if(t < 1){ requestAnimationFrame(frame); }
+      else { item.animating = false; }
     }
     requestAnimationFrame(frame);
   }
 
-  var statsSection = document.querySelector('.stats');
-  if(!statsSection || typeof IntersectionObserver === 'undefined'){
-    parsed.forEach(animate);
-  } else {
-    var done = false;
-    var obs = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if(entry.isIntersecting && !done){
-          done = true;
-          parsed.forEach(animate);
-          obs.disconnect();
-        }
-      });
-    }, { threshold:0.4 });
-    obs.observe(statsSection);
-  }
+  var parsed = Array.prototype.map.call(nums, parseMetric).filter(Boolean);
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      var item = parsed.filter(function(p){ return p.el === entry.target; })[0];
+      if(item && entry.isIntersecting && !item.animating){
+        item.animating = true;
+        item.el.textContent = item.prefix + formatNum(0, item.hasComma, item.decimals) + (item.second ? '→0' + item.suffix : item.suffix);
+        animate(item);
+      }
+    });
+  }, { threshold:0.5 });
+  parsed.forEach(function(item){ obs.observe(item.el); });
 })();
 </script>
 
