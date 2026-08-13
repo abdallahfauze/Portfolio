@@ -5,9 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Abdullah Fouze — Facilities &amp; Engineering Leader</title>
 <meta name="description" content="Abdullah Fouze — Facilities &amp; Engineering Leader, Jeddah, Saudi Arabia. 14+ years directing maintenance, capital projects, and technical teams.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body id="top">
+
+<div class="bg-layer" id="bgLayer"></div>
+
+<div class="cad-cursor" id="cadCursor" aria-hidden="true">
+  <div class="cad-line cad-h" id="cadH"></div>
+  <div class="cad-line cad-v" id="cadV"></div>
+  <div class="cad-box" id="cadBox"></div>
+</div>
 
 <nav class="topnav">
   <div class="wrap topnav-inner">
@@ -24,7 +35,14 @@
   </div>
 </nav>
 
-<header class="hero">
+<div class="side-rail" id="sideRail" aria-hidden="true">
+  <a href="#top" class="rail-dot" data-target="hero-section"><span class="rail-tip">Top</span></a>
+  <a href="#experience" class="rail-dot" data-target="experience"><span class="rail-tip">Experience</span></a>
+  <a href="#skills" class="rail-dot" data-target="skills"><span class="rail-tip">Skills</span></a>
+  <a href="#background" class="rail-dot" data-target="background"><span class="rail-tip">Background</span></a>
+</div>
+
+<header id="hero-section" class="hero">
   <div class="wrap hero-grid">
     <div class="badge-frame">
       <img src="img/headshot.jpg" alt="Portrait of Abdullah Fouze">
@@ -302,44 +320,44 @@
 
     <div class="cap-block">
       <h3>Skills &amp; Expertise</h3>
-      <div class="chiprow">
-        <span class="chip on-light">Facilities &amp; Engineering Leadership</span>
-        <span class="chip on-light">Multi-Site Operations Management</span>
-        <span class="chip on-light">Capital Project &amp; Fit-Out Delivery</span>
-        <span class="chip on-light">Preventive &amp; Corrective Maintenance</span>
-        <span class="chip on-light">MEP / HVAC &amp; Fire-Life-Safety Systems</span>
-        <span class="chip on-light">CAFM / Maintenance Systems Design</span>
-        <span class="chip on-light">Budget, Cost &amp; Contract Management</span>
-        <span class="chip on-light">Contractor &amp; Vendor Negotiation</span>
-        <span class="chip on-light">Regulatory &amp; HSE Compliance</span>
-        <span class="chip on-light">Team Leadership &amp; Development</span>
-        <span class="chip on-light">Client &amp; Stakeholder Relationship Management</span>
-        <span class="chip on-light">Risk Management &amp; Reporting</span>
+      <div class="tile-grid">
+        <div class="tile"><span class="dot"></span>Facilities &amp; Engineering Leadership</div>
+        <div class="tile"><span class="dot"></span>Multi-Site Operations Management</div>
+        <div class="tile"><span class="dot"></span>Capital Project &amp; Fit-Out Delivery</div>
+        <div class="tile"><span class="dot"></span>Preventive &amp; Corrective Maintenance</div>
+        <div class="tile"><span class="dot"></span>MEP / HVAC &amp; Fire-Life-Safety Systems</div>
+        <div class="tile"><span class="dot"></span>CAFM / Maintenance Systems Design</div>
+        <div class="tile"><span class="dot"></span>Budget, Cost &amp; Contract Management</div>
+        <div class="tile"><span class="dot"></span>Contractor &amp; Vendor Negotiation</div>
+        <div class="tile"><span class="dot"></span>Regulatory &amp; HSE Compliance</div>
+        <div class="tile"><span class="dot"></span>Team Leadership &amp; Development</div>
+        <div class="tile"><span class="dot"></span>Client &amp; Stakeholder Relationship Management</div>
+        <div class="tile"><span class="dot"></span>Risk Management &amp; Reporting</div>
       </div>
     </div>
 
     <div class="cap-block">
       <h3>Tools &amp; Technical Proficiency</h3>
-      <div class="chiprow">
-        <span class="chip on-light">AutoCAD</span>
-        <span class="chip on-light">SAP</span>
-        <span class="chip on-light">MS Office (Excel, PowerPoint, Project)</span>
-        <span class="chip on-light">CAFM / Maintenance Ticketing Systems</span>
-        <span class="chip on-light">Primavera / MS Project</span>
-        <span class="chip on-light">KPI &amp; Reporting Dashboards</span>
+      <div class="tile-grid">
+        <div class="tile"><span class="dot"></span>AutoCAD</div>
+        <div class="tile"><span class="dot"></span>SAP</div>
+        <div class="tile"><span class="dot"></span>MS Office (Excel, PowerPoint, Project)</div>
+        <div class="tile"><span class="dot"></span>CAFM / Maintenance Ticketing Systems</div>
+        <div class="tile"><span class="dot"></span>Primavera / MS Project</div>
+        <div class="tile"><span class="dot"></span>KPI &amp; Reporting Dashboards</div>
       </div>
     </div>
 
     <div class="cap-block">
       <h3>Building &amp; MEP Systems Experience</h3>
-      <div class="chiprow">
-        <span class="chip on-light">Firefighting Systems</span>
-        <span class="chip on-light">Fire Alarm Systems</span>
-        <span class="chip on-light">Refrigeration Systems</span>
-        <span class="chip on-light">HVAC Systems</span>
-        <span class="chip on-light">CCTV Systems</span>
-        <span class="chip on-light">Security Systems (Turnstiles &amp; Barrier Gates)</span>
-        <span class="chip on-light">Plumbing &amp; Drainage Networks</span>
+      <div class="tile-grid">
+        <div class="tile"><span class="dot"></span>Firefighting Systems</div>
+        <div class="tile"><span class="dot"></span>Fire Alarm Systems</div>
+        <div class="tile"><span class="dot"></span>Refrigeration Systems</div>
+        <div class="tile"><span class="dot"></span>HVAC Systems</div>
+        <div class="tile"><span class="dot"></span>CCTV Systems</div>
+        <div class="tile"><span class="dot"></span>Security Systems (Turnstiles &amp; Barrier Gates)</div>
+        <div class="tile"><span class="dot"></span>Plumbing &amp; Drainage Networks</div>
       </div>
     </div>
 
@@ -402,6 +420,129 @@
   </div>
   <div class="wrap foot-note">Abdullah Fouze · Jeddah, Saudi Arabia · Portfolio compiled 2026</div>
 </footer>
+
+<script>
+// ---------- Background parallax ----------
+(function(){
+  var layer = document.getElementById('bgLayer');
+  if(!layer) return;
+  var ticking = false;
+  function update(){
+    var y = window.scrollY || window.pageYOffset;
+    var shift = Math.max(-60, Math.min(60, y * 0.06));
+    layer.style.transform = 'translateY(' + shift + 'px)';
+    ticking = false;
+  }
+  window.addEventListener('scroll', function(){
+    if(!ticking){ requestAnimationFrame(update); ticking = true; }
+  }, { passive:true });
+  update();
+})();
+
+// ---------- AutoCAD crosshair cursor ----------
+(function(){
+  if(window.matchMedia && window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
+  var cad = document.getElementById('cadCursor');
+  var h = document.getElementById('cadH');
+  var v = document.getElementById('cadV');
+  var box = document.getElementById('cadBox');
+  if(!cad || !h || !v || !box) return;
+  var active = false, pending = false, lastX = 0, lastY = 0;
+  function render(){
+    h.style.top = lastY + 'px';
+    v.style.left = lastX + 'px';
+    box.style.top = lastY + 'px';
+    box.style.left = lastX + 'px';
+    pending = false;
+  }
+  function onMove(e){
+    if(!active){
+      active = true;
+      cad.style.display = 'block';
+      document.body.classList.add('cad-active');
+    }
+    lastX = e.clientX; lastY = e.clientY;
+    if(!pending){ pending = true; requestAnimationFrame(render); }
+  }
+  window.addEventListener('mousemove', onMove, { passive:true });
+  document.addEventListener('mouseleave', function(){ cad.style.display = 'none'; });
+  document.addEventListener('mouseenter', function(){ if(active) cad.style.display = 'block'; });
+
+  var hotSelector = 'a, button, .tile, .gph, .chip, .app-card, .mini-proj';
+  document.addEventListener('mouseover', function(e){
+    if(e.target.closest && e.target.closest(hotSelector)) box.classList.add('cad-box-hot');
+  });
+  document.addEventListener('mouseout', function(e){
+    if(e.target.closest && e.target.closest(hotSelector)) box.classList.remove('cad-box-hot');
+  });
+})();
+
+// ---------- Side rail scrollspy ----------
+(function(){
+  var rail = document.getElementById('sideRail');
+  if(!rail || typeof IntersectionObserver === 'undefined') return;
+  var dots = Array.prototype.slice.call(rail.querySelectorAll('.rail-dot'));
+  var map = {};
+  var sections = dots.map(function(d){
+    var sec = document.getElementById(d.getAttribute('data-target'));
+    if(sec) map[sec.id] = d;
+    return sec;
+  }).filter(Boolean);
+  if(!sections.length) return;
+
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        dots.forEach(function(d){ d.classList.remove('active'); });
+        map[entry.target.id].classList.add('active');
+      }
+    });
+  }, { rootMargin:'-35% 0px -55% 0px', threshold:0 });
+  sections.forEach(function(sec){ obs.observe(sec); });
+})();
+
+// ---------- Animated count-up stats ----------
+(function(){
+  var nums = document.querySelectorAll('.stat .num');
+  if(!nums.length) return;
+  var parsed = Array.prototype.map.call(nums, function(el){
+    var m = el.textContent.match(/^([^\d]*)([\d,]+)(.*)$/);
+    if(!m) return null;
+    return { el:el, prefix:m[1], target:parseInt(m[2].replace(/,/g,''),10), hasComma:m[2].indexOf(',')>-1, suffix:m[3] };
+  }).filter(Boolean);
+
+  function animate(item){
+    var duration = 1600, start = null;
+    function frame(ts){
+      if(start===null) start = ts;
+      var t = Math.min(1, (ts-start)/duration);
+      var eased = t >= 1 ? 1 : 1 - Math.pow(2, -10*t);
+      var val = Math.round(eased * item.target);
+      var numStr = item.hasComma ? val.toLocaleString('en-US') : String(val);
+      item.el.textContent = item.prefix + numStr + item.suffix;
+      if(t < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  var statsSection = document.querySelector('.stats');
+  if(!statsSection || typeof IntersectionObserver === 'undefined'){
+    parsed.forEach(animate);
+  } else {
+    var done = false;
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting && !done){
+          done = true;
+          parsed.forEach(animate);
+          obs.disconnect();
+        }
+      });
+    }, { threshold:0.4 });
+    obs.observe(statsSection);
+  }
+})();
+</script>
 
 </body>
 </html>
