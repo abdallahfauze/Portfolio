@@ -12,8 +12,6 @@
 </head>
 <body id="top">
 
-<div class="bg-layer" id="bgLayer"></div>
-
 <div class="cad-cursor" id="cadCursor" aria-hidden="true">
   <div class="cad-line cad-h" id="cadH"></div>
   <div class="cad-line cad-v" id="cadV"></div>
@@ -438,26 +436,6 @@
   });
 })();
 
-// ---------- Background parallax ----------
-(function(){
-  var layer = document.getElementById('bgLayer');
-  if(!layer) return;
-  var ticking = false;
-  function update(){
-    var y = window.scrollY || window.pageYOffset;
-    // Continuous drift for the whole page — a clamped linear shift saturates
-    // after ~1000px and goes dead for the rest of a long page, so use a slow
-    // oscillation instead: it keeps gently moving no matter how far you scroll.
-    var shift = Math.sin(y / 900) * 50;
-    layer.style.transform = 'translateY(' + shift.toFixed(1) + 'px)';
-    ticking = false;
-  }
-  window.addEventListener('scroll', function(){
-    if(!ticking){ requestAnimationFrame(update); ticking = true; }
-  }, { passive:true });
-  update();
-})();
-
 // ---------- AutoCAD crosshair cursor ----------
 (function(){
   if(window.matchMedia && window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
@@ -540,37 +518,21 @@
   sections.forEach(function(sec){ obs.observe(sec); });
 })();
 
-// ---------- Animated count-up numbers (site-wide) ----------
+// ---------- Animated count-up stats (header strip only) ----------
 (function(){
-  var nums = document.querySelectorAll('.stat .num, .metric .m-num, .mini-proj .mp-val');
+  var nums = document.querySelectorAll('.stat .num');
   if(!nums.length || typeof IntersectionObserver === 'undefined') return;
-  var DURATION = 2600;
+  var DURATION = 2000;
 
   function parseMetric(el){
     var text = el.textContent;
-    var m = text.match(/^([^\d]*)([\d,]+(?:\.\d+)?)([\s\S]*)$/);
+    var m = text.match(/^([^\d]*)([\d,]+)(.*)$/);
     if(!m) return null;
-    var prefix = m[1], numStr = m[2], rest = m[3];
-    var hasComma = numStr.indexOf(',') > -1;
-    var decMatch = numStr.match(/\.(\d+)$/);
-    var decimals = decMatch ? decMatch[1].length : 0;
-    var target = parseFloat(numStr.replace(/,/g, ''));
-    var second = null;
-    var arrowMatch = rest.match(/^→(\d+)([\s\S]*)$/);
-    if(arrowMatch){
-      second = { target: parseInt(arrowMatch[1], 10) };
-      rest = arrowMatch[2];
-    }
-    return { el:el, prefix:prefix, target:target, hasComma:hasComma, decimals:decimals, suffix:rest, second:second, animating:false };
+    return { el:el, prefix:m[1], target:parseInt(m[2].replace(/,/g, ''), 10), hasComma:m[2].indexOf(',') > -1, suffix:m[3], animating:false };
   }
 
-  function formatNum(val, hasComma, decimals){
-    if(decimals > 0){
-      return hasComma ? val.toLocaleString('en-US', { minimumFractionDigits:decimals, maximumFractionDigits:decimals })
-                       : val.toFixed(decimals);
-    }
-    var rounded = Math.round(val);
-    return hasComma ? rounded.toLocaleString('en-US') : String(rounded);
+  function formatNum(val, hasComma){
+    return hasComma ? val.toLocaleString('en-US') : String(val);
   }
 
   function animate(item){
@@ -579,14 +541,8 @@
       if(start === null) start = ts;
       var t = Math.min(1, (ts - start) / DURATION);
       var eased = t >= 1 ? 1 : 1 - Math.pow(2, -10 * t);
-      var val = eased * item.target;
-      var text = item.prefix + formatNum(val, item.hasComma, item.decimals);
-      if(item.second){
-        text += '→' + Math.round(eased * item.second.target) + item.suffix;
-      } else {
-        text += item.suffix;
-      }
-      item.el.textContent = text;
+      var val = Math.round(eased * item.target);
+      item.el.textContent = item.prefix + formatNum(val, item.hasComma) + item.suffix;
       if(t < 1){ requestAnimationFrame(frame); }
       else { item.animating = false; }
     }
@@ -599,7 +555,7 @@
       var item = parsed.filter(function(p){ return p.el === entry.target; })[0];
       if(item && entry.isIntersecting && !item.animating){
         item.animating = true;
-        item.el.textContent = item.prefix + formatNum(0, item.hasComma, item.decimals) + (item.second ? '→0' + item.suffix : item.suffix);
+        item.el.textContent = item.prefix + formatNum(0, item.hasComma) + item.suffix;
         animate(item);
       }
     });
