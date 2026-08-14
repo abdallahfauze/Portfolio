@@ -9,6 +9,16 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<script>
+// Applied before first paint so there's no flash of the wrong theme on load.
+(function(){
+  try{
+    if(localStorage.getItem('af-theme') === 'dark'){
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  }catch(e){}
+})();
+</script>
 </head>
 <body id="top">
 
@@ -29,6 +39,19 @@
       <a href="#skills">Skills</a>
       <a href="#background">Background</a>
       <a class="btn-primary topnav-cta" href="https://wa.me/966532572718" target="_blank" rel="noopener">Message</a>
+    </div>
+    <div class="theme-toggle" id="themeToggle" role="group" aria-label="Light or dark mode">
+      <button class="theme-btn" data-theme-choice="light" aria-label="Light mode" type="button">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.2" fill="currentColor"/>
+          <path d="M12 2.5v2.6M12 18.9v2.6M21.5 12h-2.6M5.1 12H2.5M18.5 5.5l-1.8 1.8M7.3 16.7l-1.8 1.8M18.5 18.5l-1.8-1.8M7.3 7.3L5.5 5.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <button class="theme-btn" data-theme-choice="dark" aria-label="Dark mode" type="button">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 1 0 10.5 10.5z" fill="currentColor"/>
+        </svg>
+      </button>
     </div>
     <button class="topnav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -418,6 +441,28 @@
 </footer>
 
 <script>
+// ---------- Light / dark mode toggle ----------
+(function(){
+  var toggle = document.getElementById('themeToggle');
+  if(!toggle) return;
+  var btns = Array.prototype.slice.call(toggle.querySelectorAll('.theme-btn'));
+  var root = document.documentElement;
+
+  function apply(mode){
+    if(mode === 'dark'){ root.setAttribute('data-theme', 'dark'); }
+    else { root.removeAttribute('data-theme'); }
+    btns.forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-theme-choice') === mode); });
+    try{ localStorage.setItem('af-theme', mode); }catch(e){}
+  }
+
+  // Sync button state to whatever the pre-paint inline script in <head> already set.
+  apply(root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
+
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){ apply(b.getAttribute('data-theme-choice')); });
+  });
+})();
+
 // ---------- Mobile nav burger ----------
 (function(){
   var burger = document.getElementById('navBurger');

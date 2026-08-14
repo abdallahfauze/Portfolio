@@ -15,6 +15,18 @@
   --font-mono: ui-monospace, "SFMono-Regular", "Cascadia Mono", Consolas, "Liberation Mono", monospace;
 }
 
+/* Dark mode: general content switches to a near-black palette (the theme this
+   site ran before the light pass). Hero/footer/nav are already dark and don't
+   need overrides — --accent already converges with --accent-on-dark here since
+   the whole page is dark at that point, not just the bookends. */
+:root[data-theme="dark"]{
+  --bg:#10141a; --surface:#171d26; --surface-2:#1c2430; --surface-3:#242e3c;
+  --ink:#edf0f3; --ink-soft:#aeb7c2; --ink-faint:#7d8794;
+  --line:#2b3542; --line-soft:#212a36;
+  --accent:#e2913f; --accent-rgb:226,145,63; --accent-ink:#1a1206; --accent-soft:#4a3319;
+  --shadow: 0 1px 2px rgba(0,0,0,.35), 0 10px 30px -14px rgba(0,0,0,.65);
+}
+
 *{box-sizing:border-box;}
 html{-webkit-text-size-adjust:100%;}
 body{
@@ -71,6 +83,21 @@ a{color:inherit;}
 }
 .topnav-links a:not(.btn-primary):hover{ color:var(--accent-on-dark); text-shadow:0 0 12px rgba(var(--accent-on-dark-rgb),.6); }
 .topnav-cta{ padding:8px 16px; font-size:13px; }
+
+.theme-toggle{
+  display:flex; align-items:center; gap:2px; padding:3px; border-radius:99px; flex:none;
+  background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14);
+}
+.theme-btn{
+  display:flex; align-items:center; justify-content:center;
+  width:28px; height:28px; border-radius:99px; border:none; background:transparent;
+  color:#8b939c; cursor:pointer; padding:0;
+  transition:background .2s ease, color .2s ease;
+}
+.theme-btn svg{ width:15px; height:15px; }
+.theme-btn:hover{ color:#e7eaed; }
+.theme-btn.active{ background:var(--accent-on-dark); color:#1a1206; }
+.theme-btn.active:hover{ color:#1a1206; }
 
 .topnav-burger{
   display:none; flex-direction:column; justify-content:center; gap:5px;
