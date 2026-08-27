@@ -518,7 +518,7 @@
   // Deliberately synchronous, no requestAnimationFrame gating: an rAF-throttled
   // render was getting silently stuck (and staying stuck) whenever the browser
   // paused rAF callbacks, which happened often enough to be the reported bug.
-  // These are four style writes plus one elementFromPoint call — cheap enough
+  // These are four style writes plus one elementFromPoint call, cheap enough
   // to run directly on every event with no risk of a dropped callback wedging it.
   function render(){
     h.style.top = lastY + 'px';
@@ -548,13 +548,13 @@
   window.addEventListener('focus', render);
 
   // checkHotAt() (called from render() above) is the single source of truth
-  // for hot-state — it re-derives it from elementFromPoint on every mousemove,
+  // for hot-state; it re-derives it from elementFromPoint on every mousemove,
   // scroll, focus, and visibility event. There used to be a second, independent
   // mouseover/mouseout mechanism writing to the same class; native mouseover/
   // mouseout don't reliably fire when content scrolls under a stationary
   // cursor, so that second mechanism could disagree with reality and never
   // gets corrected until the next real pointer move. Removed rather than kept
-  // in sync — one source of truth for this class, not two.
+  // in sync: one source of truth for this class, not two.
 })();
 
 // ---------- Side rail scrollspy ----------
