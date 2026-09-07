@@ -84,7 +84,7 @@ a{color:inherit;}
 .topnav-links a:not(.btn-primary):hover{ color:var(--accent-on-dark); text-shadow:0 0 12px rgba(var(--accent-on-dark-rgb),.6); }
 .topnav-cta{ padding:8px 16px; font-size:13px; }
 
-.theme-toggle{
+.theme-toggle, .lang-toggle{
   display:flex; align-items:center; gap:2px; padding:3px; border-radius:99px; flex:none;
   background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14);
 }
@@ -98,6 +98,52 @@ a{color:inherit;}
 .theme-btn:hover{ color:#e7eaed; }
 .theme-btn.active{ background:var(--accent-on-dark); color:#1a1206; }
 .theme-btn.active:hover{ color:#1a1206; }
+
+.lang-btn{
+  display:flex; align-items:center; justify-content:center;
+  min-width:28px; height:28px; padding:0 9px; border-radius:99px; border:none; background:transparent;
+  color:#8b939c; cursor:pointer;
+  font-family:var(--font-mono); font-size:11px; font-weight:700; letter-spacing:.04em;
+  transition:background .2s ease, color .2s ease;
+}
+.lang-btn:hover{ color:#e7eaed; }
+.lang-btn.active{ background:var(--accent-on-dark); color:#1a1206; }
+.lang-btn.active:hover{ color:#1a1206; }
+
+/* ---------- DOWNLOAD DROPDOWN ---------- */
+.download-dropdown{ position:relative; }
+.dl-trigger{
+  display:inline-flex; align-items:center; gap:5px; background:none; border:none; padding:0;
+  color:#cfd6dc; text-transform:uppercase; font-family:inherit; font-size:13px; font-weight:600; letter-spacing:.04em;
+  cursor:pointer; transition:color .25s ease, text-shadow .25s ease;
+}
+.dl-trigger:hover{ color:var(--accent-on-dark); text-shadow:0 0 12px rgba(var(--accent-on-dark-rgb),.6); }
+.dl-chevron{ width:12px; height:12px; flex:none; transition:transform .2s ease; }
+.dl-trigger[aria-expanded="true"] .dl-chevron{ transform:rotate(180deg); }
+.dl-menu{
+  display:none; position:absolute; top:calc(100% + 14px); left:50%; transform:translateX(-50%);
+  min-width:150px; padding:6px; border-radius:10px; z-index:70;
+  background:#161b22; border:1px solid rgba(255,255,255,.14); box-shadow:0 12px 30px -8px rgba(0,0,0,.55);
+}
+.dl-menu.open{ display:block; }
+.dl-menu a{
+  display:block; padding:9px 12px; border-radius:6px; text-decoration:none;
+  color:#cfd6dc; font-size:13px; font-weight:600; text-transform:none; letter-spacing:normal;
+}
+.dl-menu a:hover{ background:rgba(255,255,255,.08); color:var(--accent-on-dark); }
+
+.topnav-mobile .download-dropdown-mobile{ padding:2px 0; border-bottom:1px solid rgba(255,255,255,.12); }
+.topnav-mobile .dl-trigger{
+  width:100%; justify-content:space-between; color:#e7eaed; text-transform:uppercase;
+  font-size:15px; font-weight:600; letter-spacing:.04em; padding:12px 4px;
+}
+.topnav-mobile .dl-menu{
+  display:none; position:static; transform:none; margin:0 4px 10px; padding:2px 0 2px 14px;
+  background:none; border:none; box-shadow:none;
+}
+.topnav-mobile .dl-menu.open{ display:block; }
+.topnav-mobile .dl-menu a{ padding:8px 4px; color:#aeb7c2; font-size:14px; }
+.topnav-mobile .dl-menu a:hover{ color:var(--accent-on-dark); }
 
 .topnav-burger{
   display:none; flex-direction:column; justify-content:center; gap:5px;
@@ -274,15 +320,24 @@ a.chip:hover b, a.chip:hover{ text-shadow:0 0 10px rgba(var(--accent-on-dark-rgb
 /* ---------- STATS STRIP ---------- */
 .stats{ background:var(--surface-2); border-bottom:1px solid var(--line); }
 .stats-grid{
-  display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+  display:grid; grid-template-columns:repeat(3,1fr); gap:0;
 }
 @media (max-width:760px){ .stats-grid{ grid-template-columns:repeat(2,1fr); } }
 .stat{
-  padding:26px 20px; text-align:center; border-left:1px solid var(--line);
+  padding:26px 20px; text-align:center; border-inline-start:1px solid var(--line);
 }
-.stat:first-child{ border-left:none; }
-@media (max-width:760px){ .stat:nth-child(odd){ border-left:none; } .stat{ border-top:1px solid var(--line); } .stat:nth-child(-n+2){ border-top:none; } }
-.stat .num{ font-family:var(--font-mono); font-weight:700; font-size:clamp(22px,3vw,30px); color:var(--accent); }
+.stat:nth-child(3n+1){ border-inline-start:none; }
+.stat:nth-child(n+4){ border-top:1px solid var(--line); }
+@media (max-width:760px){
+  .stat:nth-child(3n+1){ border-inline-start:1px solid var(--line); }
+  .stat:nth-child(odd){ border-inline-start:none; }
+  .stat{ border-top:1px solid var(--line); }
+  .stat:nth-child(-n+2){ border-top:none; }
+}
+.stat .num{ font-family:var(--font-mono); font-weight:700; font-size:clamp(22px,3vw,30px); color:var(--accent);
+  /* Metric badges are always Western-numeral/arrow pairs (e.g. "85%→99%"); force
+     LTR so the RTL paragraph's bidi reordering can't flip the number order. */
+  direction:ltr; unicode-bidi:isolate; }
 .stat .label{ font-size:12px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.06em; margin-top:4px; }
 
 /* ---------- SECTION / EMPLOYER SHEET ---------- */
@@ -346,7 +401,7 @@ main{ position:relative; }
   transition:box-shadow .3s ease, border-color .3s ease;
 }
 .metric:hover{ border-color:var(--accent); box-shadow:0 0 18px -4px rgba(var(--accent-rgb),.5), var(--shadow); }
-.metric .m-num{ font-family:var(--font-mono); font-weight:700; color:var(--accent); font-size:16px; }
+.metric .m-num{ font-family:var(--font-mono); font-weight:700; color:var(--accent); font-size:16px; direction:ltr; unicode-bidi:isolate; }
 .metric .m-label{ font-size:11px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.04em; margin-top:2px;}
 
 /* photo gallery grid */
@@ -438,3 +493,31 @@ footer .foot-note{ color:#8b939c; font-size:12.5px; margin-top:26px; font-family
 .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 0 26px -2px rgba(var(--accent-on-dark-rgb),.7), var(--shadow); }
 
 .section-pad{ padding:0; }
+
+/* ---------- ARABIC / RTL ---------- */
+html.lang-pending body{ visibility:hidden; }
+
+html[lang="ar"]{
+  --font-display:'Cairo', 'Inter', -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-body:'Cairo', 'Inter', -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-mono:'Cairo', ui-monospace, "SFMono-Regular", "Cascadia Mono", Consolas, "Liberation Mono", monospace;
+  /* The base RTL direction is driven from here (the lang attribute), not from
+     a dir="rtl" attribute on <html> — see the note beside body.setAttribute('dir', ...)
+     in index.html for why. This still cascades to <body> and every descendant,
+     so grid/flex auto-mirroring and the [dir="rtl"] rules below all work the same. */
+  direction:rtl;
+}
+/* Arabic script doesn't take letter-spacing; the design system leans on it
+   heavily for the mono/eyebrow look, so it needs a blanket reset here rather
+   than per-selector overrides. */
+html[lang="ar"] *{ letter-spacing:normal !important; }
+
+[dir="rtl"] .eyebrow::before, [dir="rtl"] .eyebrow::after{
+  border-left:none; border-right:5px solid currentColor;
+}
+[dir="rtl"] .timeline-rail{ left:auto; right:-24px; }
+[dir="rtl"] .role-dates::before{ left:auto; right:-52px; }
+
+[dir="rtl"] .side-rail{ right:auto; left:22px; }
+[dir="rtl"] .rail-tip{ right:auto; left:20px; }
+[dir="rtl"] .rail-dot:hover .rail-tip{ transform:translateY(-50%) translateX(2px); }

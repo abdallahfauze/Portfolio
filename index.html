@@ -7,14 +7,18 @@
 <meta name="description" content="Abdullah Fouze | Senior Projects &amp; Facilities Leader, Jeddah, Saudi Arabia. 14+ years directing multi-site maintenance operations, capital projects, and technical teams.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <script>
-// Applied before first paint so there's no flash of the wrong theme on load.
+// Applied before first paint so there's no flash of the wrong theme/language on load.
 (function(){
   try{
     if(localStorage.getItem('af-theme') === 'dark'){
       document.documentElement.setAttribute('data-theme', 'dark');
+    }
+    if(localStorage.getItem('af-lang') === 'ar'){
+      document.documentElement.setAttribute('lang', 'ar');
+      document.documentElement.classList.add('lang-pending');
     }
   }catch(e){}
 })();
@@ -32,14 +36,27 @@
   <div class="wrap topnav-inner">
     <a class="topnav-brand" href="#top">
       <span class="topnav-avatar">AF</span>
-      <span class="topnav-name">Abdullah Fouze</span>
+      <span class="topnav-name" data-ar="عبدالله فوزي">Abdullah Fouze</span>
     </a>
     <div class="topnav-links">
-      <a href="#experience">Experience</a>
-      <a href="#skills">Skills</a>
-      <a href="#background">Background</a>
-      <a href="Abdullah_Fouze_Portfolio.pdf" download>Download Portfolio</a>
-      <a class="btn-primary topnav-cta" href="https://wa.me/966532572718" target="_blank" rel="noopener">Message</a>
+      <a href="#experience" data-ar="الخبرات">Experience</a>
+      <a href="#skills" data-ar="المهارات">Skills</a>
+      <a href="#background" data-ar="الخلفية">Background</a>
+      <div class="download-dropdown" id="downloadDropdown">
+        <button class="dl-trigger" id="dlTrigger" type="button" aria-haspopup="true" aria-expanded="false">
+          <span data-ar="تحميل الملف التعريفي">Download Portfolio</span>
+          <svg class="dl-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="dl-menu" id="dlMenu" role="menu">
+          <a href="Abdullah_Fouze_Portfolio.pdf" download role="menuitem"><span data-ar="الإنجليزية">English</span></a>
+          <a href="Abdullah_Fouze_Portfolio_AR.pdf" download role="menuitem"><span data-ar="العربية">Arabic</span></a>
+        </div>
+      </div>
+      <a class="btn-primary topnav-cta" href="https://wa.me/966532572718" target="_blank" rel="noopener" data-ar="مراسلة">Message</a>
+    </div>
+    <div class="lang-toggle" id="langToggle" role="group" aria-label="Language">
+      <button class="lang-btn" data-lang-choice="en" type="button">EN</button>
+      <button class="lang-btn" data-lang-choice="ar" type="button">AR</button>
     </div>
     <div class="theme-toggle" id="themeToggle" role="group" aria-label="Light or dark mode">
       <button class="theme-btn" data-theme-choice="light" aria-label="Light mode" type="button">
@@ -59,19 +76,28 @@
     </button>
   </div>
   <div class="topnav-mobile" id="navMobile">
-    <a href="#experience">Experience</a>
-    <a href="#skills">Skills</a>
-    <a href="#background">Background</a>
-    <a href="Abdullah_Fouze_Portfolio.pdf" download>Download Portfolio</a>
-    <a class="btn-primary" href="https://wa.me/966532572718" target="_blank" rel="noopener">Message</a>
+    <a href="#experience" data-ar="الخبرات">Experience</a>
+    <a href="#skills" data-ar="المهارات">Skills</a>
+    <a href="#background" data-ar="الخلفية">Background</a>
+    <div class="download-dropdown download-dropdown-mobile" id="downloadDropdownMobile">
+      <button class="dl-trigger" id="dlTriggerMobile" type="button" aria-haspopup="true" aria-expanded="false">
+        <span data-ar="تحميل الملف التعريفي">Download Portfolio</span>
+        <svg class="dl-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="dl-menu" id="dlMenuMobile" role="menu">
+        <a href="Abdullah_Fouze_Portfolio.pdf" download role="menuitem"><span data-ar="الإنجليزية">English</span></a>
+        <a href="Abdullah_Fouze_Portfolio_AR.pdf" download role="menuitem"><span data-ar="العربية">Arabic</span></a>
+      </div>
+    </div>
+    <a class="btn-primary" href="https://wa.me/966532572718" target="_blank" rel="noopener" data-ar="مراسلة">Message</a>
   </div>
 </nav>
 
 <div class="side-rail" id="sideRail" aria-hidden="true">
-  <a href="#top" class="rail-dot" data-target="hero-section"><span class="rail-tip">Top</span></a>
-  <a href="#experience" class="rail-dot" data-target="experience"><span class="rail-tip">Experience</span></a>
-  <a href="#skills" class="rail-dot" data-target="skills"><span class="rail-tip">Skills</span></a>
-  <a href="#background" class="rail-dot" data-target="background"><span class="rail-tip">Background</span></a>
+  <a href="#top" class="rail-dot" data-target="hero-section"><span class="rail-tip" data-ar="الأعلى">Top</span></a>
+  <a href="#experience" class="rail-dot" data-target="experience"><span class="rail-tip" data-ar="الخبرات">Experience</span></a>
+  <a href="#skills" class="rail-dot" data-target="skills"><span class="rail-tip" data-ar="المهارات">Skills</span></a>
+  <a href="#background" class="rail-dot" data-target="background"><span class="rail-tip" data-ar="الخلفية">Background</span></a>
 </div>
 
 <header id="hero-section" class="hero">
@@ -82,12 +108,12 @@
       <span class="corner c-bl"></span><span class="corner c-br"></span>
     </div>
     <div>
-      <div class="eyebrow on-dark">Senior Projects &amp; Facilities Leader, Jeddah, KSA</div>
-      <h1>Abdullah Fouze</h1>
-      <p class="role-line">Senior Projects &amp; Facilities Leader | Capital Projects | Maintenance Operations | Multi-Site Portfolios</p>
-      <p class="summary">Senior projects, facilities, and engineering leader with 14+ years directing multi-site maintenance operations, retail expansion, construction, fit-out, renovation, MEP systems, and technical teams across Saudi Arabia. Currently lead projects and maintenance across 170+ live retail sites for Dukan Retailing Company, delivering 81 store openings across FY24 and FY25 at 96%+ on-schedule delivery and 9% budget savings, and designed and deployed a custom CAFM platform that lifted preventive-maintenance compliance from 85% to 99%.</p>
+      <div class="eyebrow on-dark" data-ar="قائد أول في المشاريع والمرافق، جدة، السعودية">Senior Projects &amp; Facilities Leader, Jeddah, KSA</div>
+      <h1 data-ar="عبدالله فوزي">Abdullah Fouze</h1>
+      <p class="role-line" data-ar="قائد أول في المشاريع والمرافق | المشاريع الرأسمالية | عمليات الصيانة | إدارة المحافظ متعددة المواقع">Senior Projects &amp; Facilities Leader | Capital Projects | Maintenance Operations | Multi-Site Portfolios</p>
+      <p class="summary" data-ar="قائد أول في المشاريع والمرافق والهندسة، بخبرة تتجاوز 14 عامًا في إدارة عمليات الصيانة متعددة المواقع، والتوسع في فروع التجزئة، وأعمال الإنشاءات والتشطيبات والتجديدات، وأنظمة MEP، وقيادة الفرق الفنية في جميع أنحاء المملكة العربية السعودية. يقود حاليًا المشاريع والصيانة عبر أكثر من 170 موقع بيع تجزئة تشغيلي لصالح Dukan Retailing Company، وقد أنجز افتتاح 81 فرعًا خلال السنتين الماليتين 2024 و2025 بنسبة التزام بالجدول الزمني تفوق 96% ووفورات في الميزانية بلغت 9%، كما صمم ونفّذ بنفسه منصة CAFM مخصصة رفعت نسبة الالتزام بالصيانة الوقائية من 85% إلى 99%.">Senior projects, facilities, and engineering leader with 14+ years directing multi-site maintenance operations, retail expansion, construction, fit-out, renovation, MEP systems, and technical teams across Saudi Arabia. Currently lead projects and maintenance across 170+ live retail sites for Dukan Retailing Company, delivering 81 store openings across FY24 and FY25 at 96%+ on-schedule delivery and 9% budget savings, and designed and deployed a custom CAFM platform that lifted preventive-maintenance compliance from 85% to 99%.</p>
       <div class="chiprow">
-        <span class="chip">📍 Jeddah, Saudi Arabia</span>
+        <span class="chip" data-ar="📍 جدة، المملكة العربية السعودية">📍 Jeddah, Saudi Arabia</span>
         <a class="chip" href="https://wa.me/966532572718" target="_blank" rel="noopener">📱 <b>+966 53 257 2718</b></a>
         <a class="chip" href="mailto:abdallahfauze@gmail.com">✉️ abdallahfauze@gmail.com</a>
         <a class="chip" href="https://linkedin.com/in/abdullahfouze" target="_blank" rel="noopener">🔗 linkedin.com/in/abdullahfouze</a>
@@ -98,10 +124,12 @@
 
 <section class="stats">
   <div class="wrap stats-grid">
-    <div class="stat"><div class="num tabular">14+</div><div class="label">Years in Facilities &amp; Projects</div></div>
-    <div class="stat"><div class="num tabular">170+</div><div class="label">Live Retail Sites Today</div></div>
-    <div class="stat"><div class="num tabular">SAR 100M+</div><div class="label">Capital &amp; Fit-Out Delivered</div></div>
-    <div class="stat"><div class="num tabular">22,000 m²</div><div class="label">Landmark Facade · KAPSARC</div></div>
+    <div class="stat"><div class="num tabular">14+</div><div class="label" data-ar="سنوات خبرة في المرافق والمشاريع">Years in Facilities &amp; Projects</div></div>
+    <div class="stat"><div class="num tabular">170+</div><div class="label" data-ar="موقع بيع تجزئة تشغيلي حاليًا">Live Retail Sites Today</div></div>
+    <div class="stat"><div class="num tabular" data-ar="100 مليون ريال+">SAR 100M+</div><div class="label" data-ar="مشاريع رأسمالية وتشطيبات منجزة">Capital &amp; Fit-Out Delivered</div></div>
+    <div class="stat"><div class="num tabular">85%→99%</div><div class="label" data-ar="نسبة الالتزام بالصيانة الوقائية">Preventive-Maintenance Compliance</div></div>
+    <div class="stat"><div class="num tabular">96%+</div><div class="label" data-ar="التزام بالجدول الزمني · 81 افتتاحًا">On-Schedule Delivery · 81 Openings</div></div>
+    <div class="stat"><div class="num tabular">22,000 m²</div><div class="label" data-ar="واجهة معمارية بارزة · KAPSARC">Landmark Facade · KAPSARC</div></div>
   </div>
 </section>
 
@@ -111,34 +139,34 @@
   <!-- ===================== DUKAN ===================== -->
   <article class="role" id="dukan">
     <div class="role-head">
-      <div class="role-dates">JAN 2025<br>to<br>PRESENT</div>
+      <div class="role-dates" data-ar="يناير 2025<br>حتى<br>الآن">JAN 2025<br>to<br>PRESENT</div>
       <div class="role-titles">
-        <div class="eyebrow">Current</div>
+        <div class="eyebrow" data-ar="الحالي">Current</div>
         <h2>Dukan Retailing Company</h2>
-        <div class="loc">Jeddah, Saudi Arabia · Multi-City Retail Portfolio</div>
-        <div class="position">Head of Projects &amp; Maintenance</div>
+        <div class="loc" data-ar="جدة، المملكة العربية السعودية · محفظة تجزئة متعددة المدن">Jeddah, Saudi Arabia · Multi-City Retail Portfolio</div>
+        <div class="position" data-ar="رئيس المشاريع والصيانة">Head of Projects &amp; Maintenance</div>
       </div>
       <div class="logo-slot"><a href="https://dukan.me/en" target="_blank" rel="noopener"><img src="img/logo_dukan.png" alt="Dukan logo"></a></div>
     </div>
     <div class="role-body">
       <div class="role-copy">
-        <p><strong>January 2025 – Present.</strong> I lead facilities expansion, construction/fit-out delivery, and maintenance operations across <strong>170+ live, operating retail sites</strong> in Jeddah, Makkah, Madinah, Taif, and Yanbu. I report directly to the CEO and lead annual budgeting, resource planning, KPI setting, and performance management for projects and maintenance, leading a 21-person projects and maintenance team spanning a Maintenance Manager, refrigeration, HVAC, electrical, and civil technicians, a Site Engineer, a Designer, and a Coordinator/Document Controller. I manage an annual project portfolio of approximately <strong>SR 38M</strong>, with up to eight projects running concurrently. I standardized construction delivery through fixed-price contractor framework agreements, pre-agreeing scopes, commercial terms, and contractor readiness ahead of each fiscal year, cutting cost variance by roughly <strong>8%</strong> and eliminating the previous five-day procurement cycle. I directly manage six external maintenance contractors and service providers, recruit site engineers, project coordinators, and technicians, and restructure teams for coverage, compliance, and performance. I also delivered a <strong>16,000 sqm distribution center renovation</strong> on time and within budget, and designed and built a custom CAFM platform myself using AI-assisted development, despite having no formal coding background, that lifted preventive-maintenance compliance from <strong>85% to 99%</strong>, cut average work-order closure time from four days to two, and raised overall maintenance performance from <strong>80% to 85%</strong> and climbing. In FY25 I delivered <strong>29 new store openings</strong> at <strong>97% on-schedule delivery</strong> and <strong>9% savings</strong> against the overall budget.</p>
-        <p>Right now that means actively running a live AC &amp; refrigeration preventive-maintenance cycle across 170+ stores and the distribution center (91 in Jeddah, 42 in Makkah, 22 in Madinah, 12 in Taif, 7 in Yanbu), alongside municipal (Baladiya) compliance tracking across the whole portfolio.</p>
+        <p data-ar="&lt;strong&gt;من يناير 2025 حتى الآن.&lt;/strong&gt; أقود التوسع في المرافق، وتنفيذ أعمال الإنشاءات والتشطيبات، وعمليات الصيانة عبر &lt;strong&gt;أكثر من 170 موقع بيع تجزئة تشغيلي&lt;/strong&gt; في جدة ومكة المكرمة والمدينة المنورة والطائف وينبع. أرفع تقاريري مباشرة إلى الرئيس التنفيذي، وأتولى إعداد الميزانية السنوية، وتخطيط الموارد، وتحديد مؤشرات الأداء، وإدارة الأداء للمشاريع والصيانة، من خلال قيادة فريق مشاريع وصيانة مكوّن من 21 موظفًا يضم مدير صيانة، وفنيي تبريد وتكييف وكهرباء ومدنيات، ومهندس موقع، ومصمم، ومنسق/مراقب مستندات. أدير محفظة مشاريع سنوية بقيمة تقارب &lt;strong&gt;38 مليون ريال سعودي&lt;/strong&gt;، بواقع ما يصل إلى ثمانية مشاريع متزامنة. وحّدت آلية تنفيذ الإنشاءات عبر اتفاقيات إطارية بأسعار ثابتة مع المقاولين، مع الاتفاق المسبق على نطاق العمل والشروط التجارية وجاهزية المقاولين قبل بداية كل سنة مالية، ما أدى إلى خفض تباين التكاليف بنحو &lt;strong&gt;8%&lt;/strong&gt; وإلغاء دورة الشراء التي كانت تستغرق خمسة أيام سابقًا. أدير مباشرة ستة مقاولي ومزوّدي خدمات صيانة خارجيين، وأتولى توظيف مهندسي المواقع ومنسقي المشاريع والفنيين، وإعادة هيكلة الفرق لضمان التغطية والامتثال والأداء. كما نفّذت &lt;strong&gt;مشروع تجديد لمركز توزيع بمساحة 16,000 متر مربع&lt;/strong&gt; في الموعد المحدد وضمن الميزانية، وصممت وبنيت بنفسي منصة CAFM مخصصة باستخدام أدوات التطوير المعتمدة على الذكاء الاصطناعي رغم عدم امتلاكي خلفية برمجية رسمية، وهي منصة رفعت نسبة الالتزام بالصيانة الوقائية من &lt;strong&gt;85% إلى 99%&lt;/strong&gt;، وخفّضت متوسط زمن إغلاق أوامر العمل من أربعة أيام إلى يومين، ورفعت الأداء العام للصيانة من &lt;strong&gt;80% إلى 85%&lt;/strong&gt; وما زال في تحسن مستمر. وخلال السنة المالية 2025 نفّذت &lt;strong&gt;29 افتتاحًا لفروع جديدة&lt;/strong&gt; بنسبة التزام بالجدول الزمني بلغت &lt;strong&gt;97%&lt;/strong&gt; ووفورات بلغت &lt;strong&gt;9%&lt;/strong&gt; مقارنة بإجمالي الميزانية."><strong>January 2025 – Present.</strong> I lead facilities expansion, construction/fit-out delivery, and maintenance operations across <strong>170+ live, operating retail sites</strong> in Jeddah, Makkah, Madinah, Taif, and Yanbu. I report directly to the CEO and lead annual budgeting, resource planning, KPI setting, and performance management for projects and maintenance, leading a 21-person projects and maintenance team spanning a Maintenance Manager, refrigeration, HVAC, electrical, and civil technicians, a Site Engineer, a Designer, and a Coordinator/Document Controller. I manage an annual project portfolio of approximately <strong>SR 38M</strong>, with up to eight projects running concurrently. I standardized construction delivery through fixed-price contractor framework agreements, pre-agreeing scopes, commercial terms, and contractor readiness ahead of each fiscal year, cutting cost variance by roughly <strong>8%</strong> and eliminating the previous five-day procurement cycle. I directly manage six external maintenance contractors and service providers, recruit site engineers, project coordinators, and technicians, and restructure teams for coverage, compliance, and performance. I also delivered a <strong>16,000 sqm distribution center renovation</strong> on time and within budget, and designed and built a custom CAFM platform myself using AI-assisted development, despite having no formal coding background, that lifted preventive-maintenance compliance from <strong>85% to 99%</strong>, cut average work-order closure time from four days to two, and raised overall maintenance performance from <strong>80% to 85%</strong> and climbing. In FY25 I delivered <strong>29 new store openings</strong> at <strong>97% on-schedule delivery</strong> and <strong>9% savings</strong> against the overall budget.</p>
+        <p data-ar="وعمليًا، يعني ذلك إدارة دورة صيانة وقائية حيّة لأنظمة التكييف والتبريد عبر أكثر من 170 فرعًا ومركز التوزيع (91 فرعًا في جدة، و42 في مكة المكرمة، و22 في المدينة المنورة، و12 في الطائف، و7 في ينبع)، إلى جانب متابعة الامتثال لمتطلبات البلدية عبر المحفظة بأكملها.">Right now that means actively running a live AC &amp; refrigeration preventive-maintenance cycle across 170+ stores and the distribution center (91 in Jeddah, 42 in Makkah, 22 in Madinah, 12 in Taif, 7 in Yanbu), alongside municipal (Baladiya) compliance tracking across the whole portfolio.</p>
         <div class="sub-role">
-          <div class="sub-dates">Dec 2023 to Jan 2025</div>
-          <div class="sub-title">Project Manager</div>
-          <p>I managed the full retail project lifecycle across multiple sites and cities, site receiving, budget approvals, documentation, tendering, contractor selection, execution, handover, and closeout, reporting to the VP of Projects &amp; Development and managing an <strong>SR 30M+ annual expansion budget</strong> across the western region. I delivered <strong>52 new store openings in FY24</strong>, achieving <strong>96% on-schedule delivery</strong> and <strong>9% savings</strong> against the overall budget, while cutting fit-out duration by more than half, from 25 days down to 12, and standardizing store look and feel, quality, handover, and readiness.</p>
+          <div class="sub-dates" data-ar="ديسمبر 2023 حتى يناير 2025">Dec 2023 to Jan 2025</div>
+          <div class="sub-title" data-ar="مدير مشروع">Project Manager</div>
+          <p data-ar="تولّيت إدارة دورة حياة مشاريع التجزئة بالكامل عبر مواقع ومدن متعددة، بدءًا من استلام الموقع، والموافقات على الميزانية، والتوثيق، والمناقصات، واختيار المقاولين، وصولًا إلى التنفيذ والتسليم والإغلاق، وذلك تحت إشراف نائب رئيس المشاريع والتطوير، مع إدارة ميزانية توسع سنوية تفوق 30 مليون ريال سعودي في المنطقة الغربية. نفّذت 52 افتتاحًا لفروع جديدة خلال السنة المالية 2024، محققًا نسبة التزام بالجدول الزمني بلغت 96% ووفورات بلغت 9% من إجمالي الميزانية، مع خفض مدة التشطيب إلى أقل من النصف، من 25 يومًا إلى 12 يومًا، وتوحيد مظهر وجودة المتاجر وإجراءات التسليم والجاهزية.">I managed the full retail project lifecycle across multiple sites and cities, site receiving, budget approvals, documentation, tendering, contractor selection, execution, handover, and closeout, reporting to the VP of Projects &amp; Development and managing an <strong>SR 30M+ annual expansion budget</strong> across the western region. I delivered <strong>52 new store openings in FY24</strong>, achieving <strong>96% on-schedule delivery</strong> and <strong>9% savings</strong> against the overall budget, while cutting fit-out duration by more than half, from 25 days down to 12, and standardizing store look and feel, quality, handover, and readiness.</p>
         </div>
       </div>
       <div class="metric-row">
-        <div class="metric"><div class="m-num">170+</div><div class="m-label">Live Sites</div></div>
-        <div class="metric"><div class="m-num">21</div><div class="m-label">Team Managed</div></div>
-        <div class="metric"><div class="m-num">SR 38M</div><div class="m-label">Annual Project Portfolio</div></div>
-        <div class="metric"><div class="m-num">81</div><div class="m-label">Store Openings, FY24 &amp; FY25</div></div>
-        <div class="metric"><div class="m-num">96%+</div><div class="m-label">On-Schedule Delivery</div></div>
-        <div class="metric"><div class="m-num">9%</div><div class="m-label">Budget Savings</div></div>
-        <div class="metric"><div class="m-num">25→12 Days</div><div class="m-label">Fit-Out Cycle Cut</div></div>
-        <div class="metric"><div class="m-num">16,000 m²</div><div class="m-label">DC Renovation</div></div>
+        <div class="metric"><div class="m-num">170+</div><div class="m-label" data-ar="مواقع تشغيلية">Live Sites</div></div>
+        <div class="metric"><div class="m-num">21</div><div class="m-label" data-ar="حجم الفريق المُدار">Team Managed</div></div>
+        <div class="metric"><div class="m-num" data-ar="38 مليون ريال">SR 38M</div><div class="m-label" data-ar="محفظة المشاريع السنوية">Annual Project Portfolio</div></div>
+        <div class="metric"><div class="m-num">81</div><div class="m-label" data-ar="افتتاحات الفروع (2024 و2025)">Store Openings, FY24 &amp; FY25</div></div>
+        <div class="metric"><div class="m-num">96%+</div><div class="m-label" data-ar="الالتزام بالجدول الزمني">On-Schedule Delivery</div></div>
+        <div class="metric"><div class="m-num">9%</div><div class="m-label" data-ar="وفورات الميزانية">Budget Savings</div></div>
+        <div class="metric"><div class="m-num" data-ar="25→12 يومًا">25→12 Days</div><div class="m-label" data-ar="تقليص دورة التشطيب">Fit-Out Cycle Cut</div></div>
+        <div class="metric"><div class="m-num">16,000 m²</div><div class="m-label" data-ar="تجديد مركز التوزيع">DC Renovation</div></div>
       </div>
       <div class="gallery">
         <div class="gph"><img class="gph-base" src="img/dukan_1.jpg" alt="Dukan retail storefront 1"><img class="gph-color" src="img/dukan_1_color.jpg" alt="" aria-hidden="true"></div>
@@ -154,25 +182,25 @@
   <!-- ===================== OTHAIM ===================== -->
   <article class="role" id="othaim">
     <div class="role-head">
-      <div class="role-dates">SEP 2022<br>to<br>NOV 2023</div>
+      <div class="role-dates" data-ar="سبتمبر 2022<br>حتى<br>نوفمبر 2023">SEP 2022<br>to<br>NOV 2023</div>
       <div class="role-titles">
-        <div class="eyebrow">Flagship Project</div>
+        <div class="eyebrow" data-ar="مشروع رائد">Flagship Project</div>
         <h2>Abdullah Al Othaim Markets</h2>
-        <div class="loc">Riyadh, Saudi Arabia</div>
-        <div class="position">Senior Project Manager, Renovations</div>
+        <div class="loc" data-ar="الرياض، المملكة العربية السعودية">Riyadh, Saudi Arabia</div>
+        <div class="position" data-ar="مدير مشروع أول، التجديدات">Senior Project Manager, Renovations</div>
       </div>
       <div class="logo-slot"><a href="https://www.othaimmarkets.com/" target="_blank" rel="noopener"><img src="img/logo_othaim.png" alt="Othaim logo"></a></div>
     </div>
     <div class="role-body">
       <div class="role-copy">
-        <p>I owned the <strong>SR 47M+ Othaim Corporate Mall / Head Office</strong> project end-to-end, from scope definition, budgeting, and planning through design coordination, contractor selection, and execution to completion. I coordinated architects, designers, consultants, and contractors across an <strong>18,000 sqm head office</strong>, <strong>4,000 sqm of rental offices</strong>, and <strong>10,000 sqm of F&amp;B outlets</strong>, one integrated renovation spanning three very different use cases under one roof. I managed contractor negotiations, competitive bidding, and payment certification through to project closeout. The project was executed and handed over in <strong>120 days</strong>, fully on schedule against plan, with the final account closed under budget.</p>
+        <p data-ar="تولّيت المسؤولية الكاملة عن مشروع &lt;strong&gt;مول العثيم للمكاتب الرئيسية (Corporate Mall / Head Office) بقيمة 47 مليون ريال سعودي+&lt;/strong&gt; من بدايته حتى نهايته، بدءًا من تحديد النطاق والميزانية والتخطيط، مرورًا بتنسيق التصميم واختيار المقاولين، وصولًا إلى التنفيذ والإنجاز. نسّقت بين المعماريين والمصممين والاستشاريين والمقاولين عبر &lt;strong&gt;مقر رئيسي بمساحة 18,000 متر مربع&lt;/strong&gt;، و&lt;strong&gt;مكاتب إيجارية بمساحة 4,000 متر مربع&lt;/strong&gt;، و&lt;strong&gt;منافذ مطاعم ومقاهٍ بمساحة 10,000 متر مربع&lt;/strong&gt;، في تجديد متكامل يجمع ثلاثة استخدامات مختلفة تمامًا تحت سقف واحد. أدرت مفاوضات المقاولين والمناقصات التنافسية واعتماد المستخلصات المالية حتى إغلاق المشروع. تم تنفيذ المشروع وتسليمه خلال &lt;strong&gt;120 يومًا&lt;/strong&gt;، بالتزام كامل بالجدول الزمني المخطط، وإغلاق الحساب الختامي ضمن الميزانية.">I owned the <strong>SR 47M+ Othaim Corporate Mall / Head Office</strong> project end-to-end, from scope definition, budgeting, and planning through design coordination, contractor selection, and execution to completion. I coordinated architects, designers, consultants, and contractors across an <strong>18,000 sqm head office</strong>, <strong>4,000 sqm of rental offices</strong>, and <strong>10,000 sqm of F&amp;B outlets</strong>, one integrated renovation spanning three very different use cases under one roof. I managed contractor negotiations, competitive bidding, and payment certification through to project closeout. The project was executed and handed over in <strong>120 days</strong>, fully on schedule against plan, with the final account closed under budget.</p>
       </div>
       <div class="metric-row">
-        <div class="metric"><div class="m-num">SR 47M+</div><div class="m-label">Project Value</div></div>
-        <div class="metric"><div class="m-num">120 Days</div><div class="m-label">Delivered On Schedule</div></div>
-        <div class="metric"><div class="m-num">18,000 m²</div><div class="m-label">Head Office</div></div>
-        <div class="metric"><div class="m-num">4,000 m²</div><div class="m-label">Rental Offices</div></div>
-        <div class="metric"><div class="m-num">10,000 m²</div><div class="m-label">F&amp;B Outlets</div></div>
+        <div class="metric"><div class="m-num" data-ar="47 مليون ريال+">SR 47M+</div><div class="m-label" data-ar="قيمة المشروع">Project Value</div></div>
+        <div class="metric"><div class="m-num" data-ar="120 يومًا">120 Days</div><div class="m-label" data-ar="تسليم بالتزام كامل بالجدول الزمني">Delivered On Schedule</div></div>
+        <div class="metric"><div class="m-num">18,000 m²</div><div class="m-label" data-ar="المقر الرئيسي">Head Office</div></div>
+        <div class="metric"><div class="m-num">4,000 m²</div><div class="m-label" data-ar="المكاتب الإيجارية">Rental Offices</div></div>
+        <div class="metric"><div class="m-num">10,000 m²</div><div class="m-label" data-ar="منافذ المطاعم والمقاهي">F&amp;B Outlets</div></div>
       </div>
       <div class="gallery">
         <div class="gph"><img class="gph-base" src="img/othaim_after_1.jpg" alt="Othaim Corporate Mall renovated 1"><img class="gph-color" src="img/othaim_after_1_color.jpg" alt="" aria-hidden="true"></div>
@@ -188,26 +216,26 @@
   <!-- ===================== NADEC ===================== -->
   <article class="role" id="nadec">
     <div class="role-head">
-      <div class="role-dates">SEP 2019<br>to<br>AUG 2022</div>
+      <div class="role-dates" data-ar="سبتمبر 2019<br>حتى<br>أغسطس 2022">SEP 2019<br>to<br>AUG 2022</div>
       <div class="role-titles">
-        <div class="eyebrow">Portfolio-Wide FM</div>
+        <div class="eyebrow" data-ar="إدارة مرافق على مستوى المحفظة">Portfolio-Wide FM</div>
         <h2>National Agricultural Development Co. (NADEC)</h2>
-        <div class="loc">Riyadh, Saudi Arabia</div>
-        <div class="position">Senior Facility Manager</div>
+        <div class="loc" data-ar="الرياض، المملكة العربية السعودية">Riyadh, Saudi Arabia</div>
+        <div class="position" data-ar="مدير مرافق أول">Senior Facility Manager</div>
       </div>
       <div class="logo-slot"><a href="https://www.nadec.com/en" target="_blank" rel="noopener"><img src="img/logo_nadec.png" alt="NADEC logo"></a></div>
     </div>
     <div class="role-body">
       <div class="role-copy">
-        <p>I held full accountability for engineering and facilities operations across a <strong>42-site portfolio</strong>, including 38 distribution centers, with a combined annual <strong>OPEX budget of SR 50M+</strong> and <strong>CAPEX budget of SR 15M+</strong>. I managed maintenance, security, catering, and cleaning/hygiene functions through external contractors, vendors, and service providers, and directed development of a centralized in-house maintenance application unifying tracking, monitoring, and operational controls across all four functions. I consolidated preventive maintenance for HVAC, refrigeration, and firefighting systems across the Saudi distribution center network under single service providers, improving service levels, quality, response times, and emergency breakdown recovery, and lifting scheduled PM completion to <strong>100% on time</strong>. I secured regulatory approvals and maintained compliance with Civil Defense, Municipality, SFDA, and MOI requirements across five main distribution centers in Riyadh, Jeddah, Dammam, Qassim, and Abha, leading commissioning, testing, and technical audits through to site handover.</p>
+        <p data-ar="تحملت المسؤولية الكاملة عن العمليات الهندسية والمرافق عبر &lt;strong&gt;محفظة من 42 موقعًا&lt;/strong&gt;، من بينها 38 مركز توزيع، بميزانية تشغيلية سنوية مجمّعة &lt;strong&gt;(OPEX) تفوق 50 مليون ريال&lt;/strong&gt; وميزانية رأسمالية &lt;strong&gt;(CAPEX) تفوق 15 مليون ريال&lt;/strong&gt;. أدرت وظائف الصيانة والأمن والتموين والنظافة عبر مقاولين وموردين ومزوّدي خدمات خارجيين، وأشرفت على تطوير تطبيق صيانة داخلي مركزي يوحّد التتبع والمراقبة والضوابط التشغيلية عبر الوظائف الأربع جميعها. وحّدت أعمال الصيانة الوقائية لأنظمة التكييف والتبريد ومكافحة الحرائق عبر شبكة مراكز التوزيع في السعودية تحت مزوّدي خدمة موحّدين، ما حسّن مستويات الخدمة والجودة وأوقات الاستجابة والتعافي من الأعطال الطارئة، ورفع نسبة إنجاز الصيانة الوقائية المجدولة إلى &lt;strong&gt;100% في الوقت المحدد&lt;/strong&gt;. حصلت على الموافقات التنظيمية وحافظت على الامتثال لمتطلبات الدفاع المدني والبلدية والهيئة العامة للغذاء والدواء ووزارة الداخلية عبر خمسة مراكز توزيع رئيسية في الرياض وجدة والدمام والقصيم وأبها، وقدت أعمال التشغيل والاختبار والتدقيق الفني حتى تسليم المواقع.">I held full accountability for engineering and facilities operations across a <strong>42-site portfolio</strong>, including 38 distribution centers, with a combined annual <strong>OPEX budget of SR 50M+</strong> and <strong>CAPEX budget of SR 15M+</strong>. I managed maintenance, security, catering, and cleaning/hygiene functions through external contractors, vendors, and service providers, and directed development of a centralized in-house maintenance application unifying tracking, monitoring, and operational controls across all four functions. I consolidated preventive maintenance for HVAC, refrigeration, and firefighting systems across the Saudi distribution center network under single service providers, improving service levels, quality, response times, and emergency breakdown recovery, and lifting scheduled PM completion to <strong>100% on time</strong>. I secured regulatory approvals and maintained compliance with Civil Defense, Municipality, SFDA, and MOI requirements across five main distribution centers in Riyadh, Jeddah, Dammam, Qassim, and Abha, leading commissioning, testing, and technical audits through to site handover.</p>
       </div>
       <div class="metric-row">
-        <div class="metric"><div class="m-num">SR 50M+</div><div class="m-label">Annual OPEX</div></div>
-        <div class="metric"><div class="m-num">SR 15M+</div><div class="m-label">Annual CAPEX</div></div>
-        <div class="metric"><div class="m-num">42</div><div class="m-label">Sites Managed</div></div>
-        <div class="metric"><div class="m-num">38</div><div class="m-label">Distribution Centers</div></div>
-        <div class="metric"><div class="m-num">4</div><div class="m-label">Functions Led</div></div>
-        <div class="metric"><div class="m-num">100%</div><div class="m-label">On-Time PM Completion</div></div>
+        <div class="metric"><div class="m-num" data-ar="50 مليون ريال+">SR 50M+</div><div class="m-label" data-ar="الميزانية التشغيلية السنوية">Annual OPEX</div></div>
+        <div class="metric"><div class="m-num" data-ar="15 مليون ريال+">SR 15M+</div><div class="m-label" data-ar="الميزانية الرأسمالية السنوية">Annual CAPEX</div></div>
+        <div class="metric"><div class="m-num">42</div><div class="m-label" data-ar="موقعًا مُدارًا">Sites Managed</div></div>
+        <div class="metric"><div class="m-num">38</div><div class="m-label" data-ar="مركز توزيع">Distribution Centers</div></div>
+        <div class="metric"><div class="m-num">4</div><div class="m-label" data-ar="وظائف تشغيلية بقيادتي">Functions Led</div></div>
+        <div class="metric"><div class="m-num">100%</div><div class="m-label" data-ar="إنجاز الصيانة الوقائية في الوقت المحدد">On-Time PM Completion</div></div>
       </div>
     </div>
   </article>
@@ -215,59 +243,59 @@
   <!-- ===================== GLOBAL OFFICE SOLUTIONS ===================== -->
   <article class="role" id="gos">
     <div class="role-head">
-      <div class="role-dates">DEC 2015<br>to<br>SEP 2019</div>
+      <div class="role-dates" data-ar="ديسمبر 2015<br>حتى<br>سبتمبر 2019">DEC 2015<br>to<br>SEP 2019</div>
       <div class="role-titles">
-        <div class="eyebrow">Fit-Out Delivery</div>
+        <div class="eyebrow" data-ar="تنفيذ التشطيبات">Fit-Out Delivery</div>
         <h2>Global Office Solutions</h2>
-        <div class="loc">Riyadh, Saudi Arabia</div>
-        <div class="position">Project Manager, Fit-Out</div>
+        <div class="loc" data-ar="الرياض، المملكة العربية السعودية">Riyadh, Saudi Arabia</div>
+        <div class="position" data-ar="مدير مشروع، التشطيبات">Project Manager, Fit-Out</div>
       </div>
       <div class="logo-slot"><a href="https://gos.com.sa/" target="_blank" rel="noopener"><img src="img/logo_gos.png" alt="Global Office Solutions logo"></a></div>
     </div>
     <div class="role-body">
       <div class="role-copy">
-        <p>Across nearly four years I led a <strong>23-person multidisciplinary delivery team</strong> spanning interior, electrical, and mechanical design, project coordination, site supervision, and installation, reporting directly to the COO, and ran multiple corporate fit-out sites simultaneously. I managed client, consultant, and subcontractor interfaces and reviewed multidisciplinary coordination drawings in AutoCAD. I prepared and monitored schedules, certified payment certificates and variation orders, and ensured compliance with Saudi Building Codes.</p>
+        <p data-ar="على مدى ما يقارب أربع سنوات، قدت &lt;strong&gt;فريق تنفيذ متعدد التخصصات من 23 موظفًا&lt;/strong&gt; يغطي التصميم الداخلي والكهربائي والميكانيكي، وتنسيق المشاريع، والإشراف على المواقع، والتركيب، مع رفع التقارير مباشرة إلى الرئيس التنفيذي للعمليات (COO)، وإدارة عدة مواقع تشطيب لمقرات الشركات في آنٍ واحد. تولّيت إدارة العلاقة مع العملاء والاستشاريين ومقاولي الباطن، ومراجعة مخططات التنسيق متعددة التخصصات باستخدام AutoCAD. أعددت وتابعت الجداول الزمنية، واعتمدت مستخلصات الدفع وأوامر التغيير، وضمنت الامتثال لأكواد البناء السعودية.">Across nearly four years I led a <strong>23-person multidisciplinary delivery team</strong> spanning interior, electrical, and mechanical design, project coordination, site supervision, and installation, reporting directly to the COO, and ran multiple corporate fit-out sites simultaneously. I managed client, consultant, and subcontractor interfaces and reviewed multidisciplinary coordination drawings in AutoCAD. I prepared and monitored schedules, certified payment certificates and variation orders, and ensured compliance with Saudi Building Codes.</p>
       </div>
 
       <!-- GOS flagship client gallery: KPMG / SAMBA / Noon / Adaa -->
       <div style="margin-top:26px;">
-        <div class="eyebrow">Flagship Deliveries · SAR 53,000,000 Combined</div>
+        <div class="eyebrow" data-ar="مشاريع رئيسية منجزة · إجمالي 53,000,000 ريال">Flagship Deliveries · SAR 53,000,000 Combined</div>
         <div class="mini-projects" style="grid-template-columns:repeat(2,1fr); margin-top:14px;">
           <div class="mini-proj">
-            <div class="mp-name">KPMG Head Office</div>
-            <div class="mp-loc">Riyadh Front, Riyadh</div>
-            <div class="mp-val">SAR 29,000,000</div>
-            <div class="mp-dates">Jul 2018 – Dec 2018</div>
+            <div class="mp-name" data-ar="المقر الرئيسي لشركة KPMG">KPMG Head Office</div>
+            <div class="mp-loc" data-ar="ريادة الرياض، الرياض">Riyadh Front, Riyadh</div>
+            <div class="mp-val" data-ar="29,000,000 ريال">SAR 29,000,000</div>
+            <div class="mp-dates" data-ar="يوليو 2018 – ديسمبر 2018">Jul 2018 – Dec 2018</div>
             <div class="gallery g2" style="margin-top:10px;">
               <div class="gph"><img class="gph-base" src="img/kpmg_1.jpg" alt="KPMG Head Office building exterior"><img class="gph-color" src="img/kpmg_1_color.jpg" alt="" aria-hidden="true"></div>
               <div class="gph"><img class="gph-base" src="img/kpmg_2.jpg" alt="KPMG Head Office interior fit-out"><img class="gph-color" src="img/kpmg_2_color.jpg" alt="" aria-hidden="true"></div>
             </div>
           </div>
           <div class="mini-proj">
-            <div class="mp-name">SNB Corporate Office (Previously SAMBA HQ)</div>
-            <div class="mp-loc">KAFD, Riyadh</div>
-            <div class="mp-val">SAR 13,500,000</div>
-            <div class="mp-dates">Jan 2016 – Jul 2019</div>
+            <div class="mp-name" data-ar="مقر SNB للشركات (سابقًا مقر بنك سامبا)">SNB Corporate Office (Previously SAMBA HQ)</div>
+            <div class="mp-loc" data-ar="مركز الملك عبدالله المالي، الرياض">KAFD, Riyadh</div>
+            <div class="mp-val" data-ar="13,500,000 ريال">SAR 13,500,000</div>
+            <div class="mp-dates" data-ar="يناير 2016 – يوليو 2019">Jan 2016 – Jul 2019</div>
             <div class="gallery g2" style="margin-top:10px;">
               <div class="gph"><img class="gph-base" src="img/samba_1.jpg" alt="SNB (formerly SAMBA) tower, King Abdullah Financial District"><img class="gph-color" src="img/samba_1_color.jpg" alt="" aria-hidden="true"></div>
               <div class="gph"><img class="gph-base" src="img/samba_2.jpg" alt="Bank HQ interior fit-out, KAFD"><img class="gph-color" src="img/samba_2_color.jpg" alt="" aria-hidden="true"></div>
             </div>
           </div>
           <div class="mini-proj">
-            <div class="mp-name">Noon Head Office</div>
-            <div class="mp-loc">Riyadh Front, Riyadh</div>
-            <div class="mp-val">SAR 4,500,000</div>
-            <div class="mp-dates">Dec 2018 – May 2019</div>
+            <div class="mp-name" data-ar="المقر الرئيسي لشركة Noon">Noon Head Office</div>
+            <div class="mp-loc" data-ar="ريادة الرياض، الرياض">Riyadh Front, Riyadh</div>
+            <div class="mp-val" data-ar="4,500,000 ريال">SAR 4,500,000</div>
+            <div class="mp-dates" data-ar="ديسمبر 2018 – مايو 2019">Dec 2018 – May 2019</div>
             <div class="gallery g2" style="margin-top:10px;">
               <div class="gph"><img class="gph-base" src="img/noon_1.jpg" alt="Noon office building exterior, Riyadh"><img class="gph-color" src="img/noon_1_color.jpg" alt="" aria-hidden="true"></div>
               <div class="gph"><img class="gph-base" src="img/noon_2.jpg" alt="Noon office interior fit-out"><img class="gph-color" src="img/noon_2_color.jpg" alt="" aria-hidden="true"></div>
             </div>
           </div>
           <div class="mini-proj">
-            <div class="mp-name">Adaa Head Office</div>
-            <div class="mp-loc">Nakhla Tower, Riyadh</div>
-            <div class="mp-val">SAR 6,000,000</div>
-            <div class="mp-dates">Mar 2017 – Jul 2017</div>
+            <div class="mp-name" data-ar="المقر الرئيسي لشركة Adaa">Adaa Head Office</div>
+            <div class="mp-loc" data-ar="برج النخلة، الرياض">Nakhla Tower, Riyadh</div>
+            <div class="mp-val" data-ar="6,000,000 ريال">SAR 6,000,000</div>
+            <div class="mp-dates" data-ar="مارس 2017 – يوليو 2017">Mar 2017 – Jul 2017</div>
             <div class="gallery g2" style="margin-top:10px;">
               <div class="gph"><img class="gph-base" src="img/adaa_1.jpg" alt="Riyadh skyline near Nakhla Tower"><img class="gph-color" src="img/adaa_1_color.jpg" alt="" aria-hidden="true"></div>
               <div class="gph"><img class="gph-base" src="img/adaa_2.jpg" alt="Adaa office interior fit-out"><img class="gph-color" src="img/adaa_2_color.jpg" alt="" aria-hidden="true"></div>
@@ -281,22 +309,22 @@
   <!-- ===================== DRAKE & SCULL ===================== -->
   <article class="role" id="ds">
     <div class="role-head">
-      <div class="role-dates">JUL 2013<br>to<br>DEC 2015</div>
+      <div class="role-dates" data-ar="يوليو 2013<br>حتى<br>ديسمبر 2015">JUL 2013<br>to<br>DEC 2015</div>
       <div class="role-titles">
-        <div class="eyebrow">Landmark Project · KAPSARC</div>
+        <div class="eyebrow" data-ar="مشروع بارز · KAPSARC">Landmark Project · KAPSARC</div>
         <h2>Drake &amp; Scull International</h2>
-        <div class="loc">Construction Saudi Arabia · Riyadh</div>
-        <div class="position">Senior Site Engineer, Facade</div>
+        <div class="loc" data-ar="قطاع الإنشاءات، السعودية · الرياض">Construction Saudi Arabia · Riyadh</div>
+        <div class="position" data-ar="مهندس موقع أول، الواجهات">Senior Site Engineer, Facade</div>
       </div>
       <div class="logo-slot"><a href="https://www.drakescull.com/en" target="_blank" rel="noopener"><img src="img/logo_ds.png" alt="Drake &amp; Scull logo"></a></div>
     </div>
     <div class="role-body">
       <div class="role-copy">
-        <p>I delivered the <strong>22,000 sqm facade structure</strong> for the Conference Center on Saudi Aramco's <strong>SR 2.5 Billion KAPSARC</strong> (King Abdullah Petroleum Studies and Research Center) project, one of the Kingdom's landmark research campuses. I led a site workforce of close to 500 installers through supervisors and foremen, with minimal senior oversight, on the project that took me from quality assurance into hands-on site engineering leadership.</p>
+        <p data-ar="نفّذت &lt;strong&gt;هيكل الواجهة بمساحة 22,000 متر مربع&lt;/strong&gt; لمركز المؤتمرات ضمن مشروع أرامكو السعودية &lt;strong&gt;KAPSARC بقيمة 2.5 مليار ريال&lt;/strong&gt; (مركز الملك عبدالله لدراسات وأبحاث البترول)، أحد أبرز الصروح البحثية في المملكة. قدت فريق عمل ميداني يقارب 500 عامل تركيب عبر مشرفين ورؤساء عمال، بإشراف إداري محدود، في المشروع الذي انتقلت خلاله من ضمان الجودة إلى القيادة الميدانية المباشرة لأعمال الهندسة.">I delivered the <strong>22,000 sqm facade structure</strong> for the Conference Center on Saudi Aramco's <strong>SR 2.5 Billion KAPSARC</strong> (King Abdullah Petroleum Studies and Research Center) project, one of the Kingdom's landmark research campuses. I led a site workforce of close to 500 installers through supervisors and foremen, with minimal senior oversight, on the project that took me from quality assurance into hands-on site engineering leadership.</p>
       </div>
       <div class="metric-row">
-        <div class="metric"><div class="m-num">22,000 m²</div><div class="m-label">Facade Delivered</div></div>
-        <div class="metric"><div class="m-num">SR 2.5B</div><div class="m-label">Parent Project · KAPSARC</div></div>
+        <div class="metric"><div class="m-num">22,000 m²</div><div class="m-label" data-ar="الواجهة المنفَّذة">Facade Delivered</div></div>
+        <div class="metric"><div class="m-num" data-ar="2.5 مليار ريال">SR 2.5B</div><div class="m-label" data-ar="المشروع الأم · KAPSARC">Parent Project · KAPSARC</div></div>
       </div>
       <div class="gallery">
         <div class="gph"><img class="gph-base" src="img/ds_1.jpg" alt="KAPSARC construction site 1"><img class="gph-color" src="img/ds_1_color.jpg" alt="" aria-hidden="true"></div>
@@ -312,21 +340,21 @@
   <!-- ===================== ANC ===================== -->
   <article class="role" id="anc">
     <div class="role-head">
-      <div class="role-dates">JUL 2012<br>to<br>JUL 2013</div>
+      <div class="role-dates" data-ar="يوليو 2012<br>حتى<br>يوليو 2013">JUL 2012<br>to<br>JUL 2013</div>
       <div class="role-titles">
-        <div class="eyebrow">Where It Started</div>
+        <div class="eyebrow" data-ar="حيث بدأت المسيرة">Where It Started</div>
         <h2>ANC Contracting LLC</h2>
-        <div class="loc">Riyadh, Saudi Arabia</div>
-        <div class="position">QA/QC Engineer</div>
+        <div class="loc" data-ar="الرياض، المملكة العربية السعودية">Riyadh, Saudi Arabia</div>
+        <div class="position" data-ar="مهندس ضمان وجودة">QA/QC Engineer</div>
       </div>
       <div class="logo-slot"><img src="img/logo_anc.png" alt="ANC Contracting logo"></div>
     </div>
     <div class="role-body">
       <div class="role-copy">
-        <p>My first role on the ground: ensuring quality compliance on a <strong>SAR 153 Million residential and commercial tower</strong> at King Abdullah Financial District (KAFD). I ran inspections for structural and architectural works, verified compliance with specifications and quality standards, managed document submittals, and resolved non-conformances before they became site problems.</p>
+        <p data-ar="أول دور ميداني لي: ضمان الامتثال للجودة في &lt;strong&gt;برج سكني وتجاري بقيمة 153 مليون ريال&lt;/strong&gt; في مركز الملك عبدالله المالي (KAFD). أجريت أعمال الفحص للأعمال الإنشائية والمعمارية، وتحققت من الامتثال للمواصفات ومعايير الجودة، وأدرت تقديم المستندات، وعالجت حالات عدم المطابقة قبل أن تتحول إلى مشكلات ميدانية.">My first role on the ground: ensuring quality compliance on a <strong>SAR 153 Million residential and commercial tower</strong> at King Abdullah Financial District (KAFD). I ran inspections for structural and architectural works, verified compliance with specifications and quality standards, managed document submittals, and resolved non-conformances before they became site problems.</p>
       </div>
       <div class="metric-row">
-        <div class="metric"><div class="m-num">SAR 153M</div><div class="m-label">Tower Value · KAFD</div></div>
+        <div class="metric"><div class="m-num" data-ar="153 مليون ريال">SAR 153M</div><div class="m-label" data-ar="قيمة البرج · KAFD">Tower Value · KAFD</div></div>
       </div>
       <div class="gallery" style="grid-template-columns:repeat(2,1fr);">
         <div class="gph"><img class="gph-base" src="img/anc_1.jpg" alt="KAFD tower construction site"><img class="gph-color" src="img/anc_1_color.jpg" alt="" aria-hidden="true"></div>
@@ -339,80 +367,80 @@
 <!-- ===================== CAPABILITIES: SKILLS / TOOLS / APPLICATIONS ===================== -->
 <section id="skills" class="capabilities">
   <div class="wrap">
-    <div class="eyebrow">What I Bring</div>
+    <div class="eyebrow" data-ar="ما أقدمه">What I Bring</div>
 
     <div class="cap-block">
-      <h3>Skills &amp; Expertise</h3>
+      <h3 data-ar="المهارات والخبرات">Skills &amp; Expertise</h3>
       <div class="tile-grid">
-        <div class="tile"><span class="dot"></span>Facilities &amp; Engineering Leadership</div>
-        <div class="tile"><span class="dot"></span>Multi-Site Operations Management</div>
-        <div class="tile"><span class="dot"></span>Capital Project &amp; Fit-Out Delivery</div>
-        <div class="tile"><span class="dot"></span>Preventive &amp; Corrective Maintenance</div>
-        <div class="tile"><span class="dot"></span>MEP / HVAC &amp; Fire-Life-Safety Systems</div>
-        <div class="tile"><span class="dot"></span>CAFM / Maintenance Systems Design</div>
-        <div class="tile"><span class="dot"></span>Budget, Cost &amp; Contract Management</div>
-        <div class="tile"><span class="dot"></span>Contractor &amp; Vendor Negotiation</div>
-        <div class="tile"><span class="dot"></span>Regulatory &amp; HSE Compliance</div>
-        <div class="tile"><span class="dot"></span>Team Leadership &amp; Development</div>
-        <div class="tile"><span class="dot"></span>Client &amp; Stakeholder Relationship Management</div>
-        <div class="tile"><span class="dot"></span>Risk Management &amp; Reporting</div>
+        <div class="tile"><span class="dot"></span><span data-ar="قيادة المرافق والهندسة">Facilities &amp; Engineering Leadership</span></div>
+        <div class="tile"><span class="dot"></span><span data-ar="إدارة العمليات متعددة المواقع">Multi-Site Operations Management</span></div>
+        <div class="tile"><span class="dot"></span><span data-ar="تنفيذ المشاريع الرأسمالية والتشطيبات">Capital Project &amp; Fit-Out Delivery</span></div>
+        <div class="tile"><span class="dot"></span><span data-ar="الصيانة الوقائية والتصحيحية">Preventive &amp; Corrective Maintenance</span></div>
+        <div class="tile"><span class="dot"></span><span data-ar="أنظمة MEP / التكييف والسلامة من الحريق">MEP / HVAC &amp; Fire-Life-Safety Systems</span></div>
+        <div class="tile"><span class="dot"></span><span data-ar="تصميم أنظمة CAFM للصيانة">CAFM / Maintenance Systems Design</span></div>
+        <div class="tile"><span class="dot"></span><span data-ar="إدارة الميزانية والتكاليف والعقود">Budget, Cost &amp; Contract Management</span></div>
+        <div class="tile"><span class="dot"></span><span data-ar="التفاوض مع المقاولين والموردين">Contractor &amp; Vendor Negotiation</span></div>
+        <div class="tile"><span class="dot"></span><span data-ar="الامتثال التنظيمي والصحة والسلامة">Regulatory &amp; HSE Compliance</span></div>
+        <div class="tile"><span class="dot"></span><span data-ar="قيادة وتطوير الفرق">Team Leadership &amp; Development</span></div>
+        <div class="tile"><span class="dot"></span><span data-ar="إدارة علاقات العملاء وأصحاب المصلحة">Client &amp; Stakeholder Relationship Management</span></div>
+        <div class="tile"><span class="dot"></span><span data-ar="إدارة المخاطر وإعداد التقارير">Risk Management &amp; Reporting</span></div>
       </div>
     </div>
 
     <div class="cap-block">
-      <h3>Tools &amp; Technical Proficiency</h3>
+      <h3 data-ar="الأدوات والكفاءة التقنية">Tools &amp; Technical Proficiency</h3>
       <div class="tile-grid">
         <div class="tile"><span class="dot"></span>AutoCAD</div>
         <div class="tile"><span class="dot"></span>SAP</div>
-        <div class="tile"><span class="dot"></span>MS Office (Excel, PowerPoint, Project)</div>
-        <div class="tile"><span class="dot"></span>CAFM / Maintenance Ticketing Systems</div>
+        <div class="tile"><span class="dot"></span><span data-ar="حزمة MS Office (إكسل، باوربوينت، بروجكت)">MS Office (Excel, PowerPoint, Project)</span></div>
+        <div class="tile"><span class="dot"></span><span data-ar="أنظمة CAFM / تذاكر الصيانة">CAFM / Maintenance Ticketing Systems</span></div>
         <div class="tile"><span class="dot"></span>Primavera / MS Project</div>
-        <div class="tile"><span class="dot"></span>KPI &amp; Reporting Dashboards</div>
+        <div class="tile"><span class="dot"></span><span data-ar="لوحات مؤشرات الأداء والتقارير">KPI &amp; Reporting Dashboards</span></div>
       </div>
     </div>
 
     <div class="cap-block">
-      <h3>Building &amp; MEP Systems Experience</h3>
+      <h3 data-ar="الخبرة في أنظمة المباني وMEP">Building &amp; MEP Systems Experience</h3>
       <div class="tile-grid">
-        <div class="tile"><span class="dot"></span>Firefighting Systems</div>
-        <div class="tile"><span class="dot"></span>Fire Alarm Systems</div>
-        <div class="tile"><span class="dot"></span>Refrigeration Systems</div>
-        <div class="tile"><span class="dot"></span>HVAC Systems</div>
-        <div class="tile"><span class="dot"></span>CCTV Systems</div>
-        <div class="tile"><span class="dot"></span>Security Systems (Turnstiles &amp; Barrier Gates)</div>
-        <div class="tile"><span class="dot"></span>LV Systems</div>
-        <div class="tile"><span class="dot"></span>Low Current Systems</div>
-        <div class="tile"><span class="dot"></span>A/V Systems (Audio/Video)</div>
-        <div class="tile"><span class="dot"></span>VRF Systems</div>
-        <div class="tile"><span class="dot"></span>Backup Generators</div>
-        <div class="tile"><span class="dot"></span>Cold Rooms</div>
-        <div class="tile"><span class="dot"></span>Civil Works</div>
-        <div class="tile"><span class="dot"></span>Plumbing Systems</div>
+        <div class="tile"><span class="dot"></span><span data-ar="أنظمة مكافحة الحرائق">Firefighting Systems</span></div>
+        <div class="tile"><span class="dot"></span><span data-ar="أنظمة إنذار الحريق">Fire Alarm Systems</span></div>
+        <div class="tile"><span class="dot"></span><span data-ar="أنظمة التبريد">Refrigeration Systems</span></div>
+        <div class="tile"><span class="dot"></span><span data-ar="أنظمة التكييف (HVAC)">HVAC Systems</span></div>
+        <div class="tile"><span class="dot"></span><span data-ar="أنظمة المراقبة (CCTV)">CCTV Systems</span></div>
+        <div class="tile"><span class="dot"></span><span data-ar="الأنظمة الأمنية (البوابات الدوارة وحواجز الدخول)">Security Systems (Turnstiles &amp; Barrier Gates)</span></div>
+        <div class="tile"><span class="dot"></span><span data-ar="أنظمة الجهد المنخفض (LV)">LV Systems</span></div>
+        <div class="tile"><span class="dot"></span><span data-ar="أنظمة التيار المنخفض">Low Current Systems</span></div>
+        <div class="tile"><span class="dot"></span><span data-ar="الأنظمة السمعية والبصرية (A/V)">A/V Systems (Audio/Video)</span></div>
+        <div class="tile"><span class="dot"></span><span data-ar="أنظمة VRF">VRF Systems</span></div>
+        <div class="tile"><span class="dot"></span><span data-ar="المولدات الاحتياطية">Backup Generators</span></div>
+        <div class="tile"><span class="dot"></span><span data-ar="الغرف الباردة">Cold Rooms</span></div>
+        <div class="tile"><span class="dot"></span><span data-ar="الأعمال المدنية">Civil Works</span></div>
+        <div class="tile"><span class="dot"></span><span data-ar="أنظمة السباكة">Plumbing Systems</span></div>
       </div>
     </div>
 
     <div class="cap-block">
-      <h3>Systems &amp; Applications Built</h3>
+      <h3 data-ar="أنظمة وتطبيقات قمت ببنائها">Systems &amp; Applications Built</h3>
       <div class="app-grid">
         <div class="app-card">
           <span class="app-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><line x1="2" y1="8.5" x2="22" y2="8.5" stroke="currentColor" stroke-width="1.6"/><circle cx="5" cy="6.2" r="0.7" fill="currentColor"/><circle cx="7.4" cy="6.2" r="0.7" fill="currentColor"/></svg></span>
-          <div class="app-name">Dukan Maintenance Web Portal</div>
-          <div class="app-meta">Dukan Retailing Company · 2025</div>
-          <div class="app-desc">Designed, built, tested, and deployed a custom CAFM platform myself using AI-assisted development, despite having no formal coding background, from workflow design through user-adoption training, enabling store teams across 170+ sites to log, track, and close maintenance requests digitally in place of manual, phone-based reporting.</div>
+          <div class="app-name" data-ar="بوابة Dukan الإلكترونية للصيانة">Dukan Maintenance Web Portal</div>
+          <div class="app-meta" data-ar="Dukan Retailing Company · 2025">Dukan Retailing Company · 2025</div>
+          <div class="app-desc" data-ar="صممت وبنيت واختبرت ونشرت بنفسي منصة CAFM مخصصة باستخدام أدوات التطوير المعتمدة على الذكاء الاصطناعي رغم عدم امتلاكي خلفية برمجية رسمية، بدءًا من تصميم سير العمل وحتى تدريب المستخدمين على تبنّي النظام، ما مكّن فرق الفروع عبر أكثر من 170 موقعًا من تسجيل ومتابعة وإغلاق طلبات الصيانة رقميًا بدلًا من التبليغ اليدوي عبر الهاتف.">Designed, built, tested, and deployed a custom CAFM platform myself using AI-assisted development, despite having no formal coding background, from workflow design through user-adoption training, enabling store teams across 170+ sites to log, track, and close maintenance requests digitally in place of manual, phone-based reporting.</div>
           <div class="metric-row" style="margin-top:14px;">
-            <div class="metric"><div class="m-num">43</div><div class="m-label">Users</div></div>
-            <div class="metric"><div class="m-num">3,445</div><div class="m-label">Assets Managed</div></div>
-            <div class="metric"><div class="m-num">450</div><div class="m-label">Avg. Monthly Work Orders</div></div>
-            <div class="metric"><div class="m-num">85%→99%</div><div class="m-label">PM Compliance</div></div>
-            <div class="metric"><div class="m-num">4→2 Days</div><div class="m-label">WO Closure Time</div></div>
-            <div class="metric"><div class="m-num">80%→85%</div><div class="m-label">Maintenance Performance</div></div>
+            <div class="metric"><div class="m-num">43</div><div class="m-label" data-ar="مستخدمًا">Users</div></div>
+            <div class="metric"><div class="m-num">3,445</div><div class="m-label" data-ar="أصل مُدار">Assets Managed</div></div>
+            <div class="metric"><div class="m-num">450</div><div class="m-label" data-ar="متوسط أوامر العمل الشهرية">Avg. Monthly Work Orders</div></div>
+            <div class="metric"><div class="m-num">85%→99%</div><div class="m-label" data-ar="الالتزام بالصيانة الوقائية">PM Compliance</div></div>
+            <div class="metric"><div class="m-num" data-ar="4→2 أيام">4→2 Days</div><div class="m-label" data-ar="زمن إغلاق أمر العمل">WO Closure Time</div></div>
+            <div class="metric"><div class="m-num">80%→85%</div><div class="m-label" data-ar="أداء الصيانة العام">Maintenance Performance</div></div>
           </div>
         </div>
         <div class="app-card">
           <span class="app-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.6"/><path d="M12 2.5v3M12 18.5v3M21.5 12h-3M5.5 12h-3M18.5 5.5l-2.1 2.1M7.6 16.4l-2.1 2.1M18.5 18.5l-2.1-2.1M7.6 7.6L5.5 5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
-          <div class="app-name">NADEC In-House Maintenance Application</div>
-          <div class="app-meta">NADEC · 2020–2022</div>
-          <div class="app-desc">Directed the development of a custom maintenance management application for a 42-site portfolio, digitizing work order tracking, preventive maintenance scheduling, and compliance documentation across maintenance, security, catering, and cleaning/hygiene functions.</div>
+          <div class="app-name" data-ar="تطبيق NADEC الداخلي للصيانة">NADEC In-House Maintenance Application</div>
+          <div class="app-meta" data-ar="NADEC · 2020–2022">NADEC · 2020–2022</div>
+          <div class="app-desc" data-ar="أشرفت على تطوير تطبيق مخصص لإدارة الصيانة لمحفظة من 42 موقعًا، حوّل تتبع أوامر العمل وجدولة الصيانة الوقائية وتوثيق الامتثال إلى نظام رقمي عبر وظائف الصيانة والأمن والتموين والنظافة.">Directed the development of a custom maintenance management application for a 42-site portfolio, digitizing work order tracking, preventive maintenance scheduling, and compliance documentation across maintenance, security, catering, and cleaning/hygiene functions.</div>
         </div>
       </div>
     </div>
@@ -423,21 +451,21 @@
 <!-- ===================== EARLY CAREER / EDUCATION ===================== -->
 <section id="background" class="closing">
   <div class="wrap">
-    <div class="eyebrow">Before It All Started</div>
+    <div class="eyebrow" data-ar="قبل أن تبدأ المسيرة">Before It All Started</div>
     <div class="closing-grid" style="margin-top:16px;">
       <div>
-        <h3>Early Career</h3>
-        <div class="item"><div class="t1">Aircraft Trainee Engineer</div><div class="t2">Sri Lankan Airlines · Aircraft Engineering Division · 2010</div></div>
+        <h3 data-ar="البداية المهنية">Early Career</h3>
+        <div class="item"><div class="t1" data-ar="مهندس متدرب طيران">Aircraft Trainee Engineer</div><div class="t2" data-ar="الخطوط الجوية السريلانكية · قسم هندسة الطائرات · 2010">Sri Lankan Airlines · Aircraft Engineering Division · 2010</div></div>
       </div>
       <div>
-        <h3>Education</h3>
-        <div class="item"><div class="t1">B.Sc., Materials Engineering</div><div class="t2">University of Moratuwa, Sri Lanka · 2012</div></div>
+        <h3 data-ar="التعليم">Education</h3>
+        <div class="item"><div class="t1" data-ar="بكالوريوس علوم، هندسة المواد">B.Sc., Materials Engineering</div><div class="t2" data-ar="جامعة موراتوا، سريلانكا · 2012">University of Moratuwa, Sri Lanka · 2012</div></div>
       </div>
       <div>
-        <h3>Affiliations &amp; Languages</h3>
-        <div class="item"><div class="t1">Saudi Council of Engineers</div><div class="t2">Saudi Arabia</div></div>
-        <div class="item"><div class="t1">Institute of Engineers</div><div class="t2">Sri Lanka</div></div>
-        <div class="item"><div class="t1">English (Fluent) · Arabic (Conversational)</div></div>
+        <h3 data-ar="العضويات واللغات">Affiliations &amp; Languages</h3>
+        <div class="item"><div class="t1" data-ar="الهيئة السعودية للمهندسين">Saudi Council of Engineers</div><div class="t2" data-ar="المملكة العربية السعودية">Saudi Arabia</div></div>
+        <div class="item"><div class="t1" data-ar="معهد المهندسين">Institute of Engineers</div><div class="t2" data-ar="سريلانكا">Sri Lanka</div></div>
+        <div class="item"><div class="t1" data-ar="الإنجليزية (طلاقة) · العربية (محادثة)">English (Fluent) · Arabic (Conversational)</div></div>
       </div>
     </div>
   </div>
@@ -446,17 +474,17 @@
 <footer>
   <div class="wrap foot-grid">
     <div>
-      <div class="eyebrow on-dark">Let's Build Something</div>
-      <h2>Ready for the<br>next capital project.</h2>
+      <div class="eyebrow on-dark" data-ar="لنبنِ شيئًا معًا">Let's Build Something</div>
+      <h2 data-ar="جاهز للمشروع الرأسمالي التالي.">Ready for the<br>next capital project.</h2>
       <div class="chiprow">
         <a class="chip" href="https://wa.me/966532572718" target="_blank" rel="noopener">📱 +966 53 257 2718</a>
         <a class="chip" href="mailto:abdallahfauze@gmail.com">✉️ abdallahfauze@gmail.com</a>
         <a class="chip" href="https://linkedin.com/in/abdullahfouze" target="_blank" rel="noopener">🔗 linkedin.com/in/abdullahfouze</a>
       </div>
     </div>
-    <a class="btn-primary" href="https://wa.me/966532572718" target="_blank" rel="noopener">Message on WhatsApp →</a>
+    <a class="btn-primary" href="https://wa.me/966532572718" target="_blank" rel="noopener" data-ar="مراسلة عبر واتساب ←">Message on WhatsApp →</a>
   </div>
-  <div class="wrap foot-note">Abdullah Fouze · Jeddah, Saudi Arabia · Portfolio compiled 2026</div>
+  <div class="wrap foot-note" data-ar="عبدالله فوزي · جدة، المملكة العربية السعودية · تم إعداد الملف التعريفي 2026">Abdullah Fouze · Jeddah, Saudi Arabia · Portfolio compiled 2026</div>
 </footer>
 
 <script>
@@ -480,6 +508,80 @@
   btns.forEach(function(b){
     b.addEventListener('click', function(){ apply(b.getAttribute('data-theme-choice')); });
   });
+})();
+
+// ---------- Language toggle (EN / AR, with RTL) ----------
+(function(){
+  var root = document.documentElement;
+  var toggle = document.getElementById('langToggle');
+  var btns = toggle ? Array.prototype.slice.call(toggle.querySelectorAll('.lang-btn')) : [];
+  var nodes = Array.prototype.slice.call(document.querySelectorAll('[data-ar]'));
+  var cache = new WeakMap();
+  nodes.forEach(function(el){ cache.set(el, el.innerHTML); });
+
+  var EN_TITLE = document.title;
+  var AR_TITLE = 'عبدالله فوزي | قائد أول في المشاريع والمرافق';
+  var metaDesc = document.querySelector('meta[name="description"]');
+  var EN_DESC = metaDesc ? metaDesc.getAttribute('content') : '';
+  var AR_DESC = 'عبدالله فوزي | قائد أول في المشاريع والمرافق، جدة، المملكة العربية السعودية. أكثر من 14 عامًا في إدارة عمليات الصيانة متعددة المواقع والمشاريع الرأسمالية والفرق الفنية.';
+
+  function apply(lang){
+    root.setAttribute('lang', lang);
+    // dir is set on <body>, not <html>: Chromium's print/PDF pagination reads
+    // dir="rtl" on the root element as a page-progression-direction hint and
+    // mis-lays-out content off the left edge of the page because of it — a
+    // print-only bug (on-screen rendering at an identical width is unaffected).
+    // Scoping it to <body> keeps every [dir="rtl"] CSS rule and the automatic
+    // grid/flex mirroring working (direction still cascades from <html> via the
+    // lang-keyed rule below) while sidestepping that print engine code path.
+    document.body.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+    nodes.forEach(function(el){
+      el.innerHTML = lang === 'ar' ? el.getAttribute('data-ar') : cache.get(el);
+    });
+    btns.forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-lang-choice') === lang); });
+    document.title = lang === 'ar' ? AR_TITLE : EN_TITLE;
+    if(metaDesc) metaDesc.setAttribute('content', lang === 'ar' ? AR_DESC : EN_DESC);
+    try{ localStorage.setItem('af-lang', lang); }catch(e){}
+    root.classList.remove('lang-pending');
+  }
+
+  var saved = 'en';
+  try{ saved = localStorage.getItem('af-lang') || 'en'; }catch(e){}
+  apply(saved);
+
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){ apply(b.getAttribute('data-lang-choice')); });
+  });
+})();
+
+// ---------- Download Portfolio dropdown (English / Arabic) ----------
+(function(){
+  var pairs = [
+    { trigger: document.getElementById('dlTrigger'), menu: document.getElementById('dlMenu') },
+    { trigger: document.getElementById('dlTriggerMobile'), menu: document.getElementById('dlMenuMobile') }
+  ];
+
+  function closeAll(except){
+    pairs.forEach(function(p){
+      if(!p.trigger || !p.menu || p.trigger === except) return;
+      p.menu.classList.remove('open');
+      p.trigger.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  pairs.forEach(function(p){
+    if(!p.trigger || !p.menu) return;
+    p.trigger.addEventListener('click', function(e){
+      e.stopPropagation();
+      var willOpen = !p.menu.classList.contains('open');
+      closeAll();
+      p.menu.classList.toggle('open', willOpen);
+      p.trigger.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    });
+  });
+
+  document.addEventListener('click', function(){ closeAll(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeAll(); });
 })();
 
 // ---------- Mobile nav burger ----------
@@ -591,7 +693,7 @@
   function parseMetric(el){
     var text = el.textContent;
     var m = text.match(/^([^\d]*)([\d,]+)(.*)$/);
-    if(!m) return null;
+    if(!m || /\d/.test(m[3])) return null;
     return { el:el, prefix:m[1], target:parseInt(m[2].replace(/,/g, ''), 10), hasComma:m[2].indexOf(',') > -1, suffix:m[3], animating:false };
   }
 
