@@ -141,6 +141,12 @@ body.cad-active, body.cad-active *{ cursor:none !important; }
   background:rgba(var(--accent-on-dark-rgb),.4); box-shadow:0 0 12px 2px rgba(var(--accent-on-dark-rgb),.55);
 }
 @media (hover:none), (pointer:coarse){ .cad-cursor{ display:none !important; } body.cad-active, body.cad-active *{ cursor:auto !important; } }
+/* Belt-and-braces for PDF export: headless Chromium reports hover:hover and
+   pointer:fine (no touch emulation), so the query above doesn't catch it, and
+   the crosshair defaults to screen-center with no real mouse to move it away.
+   The ?capture=1 JS guard is the primary fix; this is a second, CSS-only
+   layer that holds even if that flag is ever missed. */
+@media print{ .cad-cursor{ display:none !important; } body.cad-active, body.cad-active *{ cursor:auto !important; } }
 
 /* ---------- SIDE PROGRESS RAIL ---------- */
 .side-rail{
@@ -333,6 +339,11 @@ main{ position:relative; }
 .role-copy p{ margin:0 0 12px; }
 .role-copy p:last-child{ margin-bottom:0; }
 .role-copy strong{ color:var(--ink); }
+.role-copy ul{ margin:0 0 12px; padding:0; list-style:none; text-align:left; }
+.role-copy ul:last-child{ margin-bottom:0; }
+.role-copy li{ position:relative; padding-left:20px; margin:0 0 9px; }
+.role-copy li:last-child{ margin-bottom:0; }
+.role-copy li::before{ content:""; position:absolute; left:2px; top:.6em; width:6px; height:6px; border-radius:50%; background:var(--accent); }
 
 .sub-role{ margin-top:18px; padding-top:16px; border-top:1px dashed var(--line); }
 .sub-role .sub-dates{ font-family:var(--font-mono); font-size:11.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.05em;}
