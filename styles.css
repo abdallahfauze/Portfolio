@@ -201,9 +201,14 @@ body.cad-active, body.cad-active *{ cursor:none !important; }
 }
 .badge-frame img{
   width:176px; height:176px; object-fit:cover; border-radius:6px;
-  filter:grayscale(1) contrast(1.05);
   border:1px solid rgba(255,255,255,.14);
 }
+/* Same base/color crossfade technique as the project galleries (.gph-base /
+   .gph-color): default view stays the grayscale portrait, hover fades in
+   the true-color one layered on top. */
+.badge-base{ filter:grayscale(1) contrast(1.05); transition:opacity .5s ease; }
+.badge-color{ position:absolute; inset:0; opacity:0; transition:opacity .5s ease; }
+.badge-frame:hover .badge-color{ opacity:1; }
 .badge-frame .corner{
   position:absolute; width:22px; height:22px; border-color:var(--accent-on-dark); border-style:solid; border-width:0;
   filter:drop-shadow(0 0 6px rgba(var(--accent-on-dark-rgb),.65));
