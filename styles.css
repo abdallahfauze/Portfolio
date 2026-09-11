@@ -455,5 +455,62 @@ footer .foot-note{ color:#8b939c; font-size:12.5px; margin-top:26px; font-family
   transition:box-shadow .3s ease, transform .3s ease;
 }
 .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 0 26px -2px rgba(var(--accent-on-dark-rgb),.7), var(--shadow); }
+button.btn-primary{ font-family:var(--font-display); text-transform:uppercase; border:none; cursor:pointer; letter-spacing:.02em; }
 
 .section-pad{ padding:0; }
+
+/* ---------- Contact modal ---------- */
+.modal-overlay{
+  position:fixed; inset:0; z-index:200; display:flex; align-items:center; justify-content:center;
+  background:rgba(10,12,16,.6); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px);
+  padding:20px;
+}
+.modal-overlay[hidden]{ display:none; }
+.modal-card{
+  position:relative; width:100%; max-width:440px; background:var(--surface); color:var(--ink);
+  border:1px solid var(--line); border-radius:12px; padding:28px 26px 24px; box-shadow:var(--shadow);
+}
+.modal-card h3{ margin:0 0 6px; font-family:var(--font-display); font-size:20px; }
+.modal-sub{ margin:0 0 18px; font-size:13.5px; color:var(--ink-soft); }
+.modal-close{
+  position:absolute; top:12px; right:12px; width:30px; height:30px; border-radius:8px;
+  border:1px solid var(--line); background:var(--surface-2); color:var(--ink-soft);
+  font-size:18px; line-height:1; cursor:pointer;
+}
+.modal-close:hover{ color:var(--ink); border-color:var(--accent); }
+.modal-field{ display:block; margin-bottom:14px; font-size:12.5px; color:var(--ink-soft); font-weight:600; text-transform:uppercase; letter-spacing:.03em; }
+.modal-field input, .modal-field textarea{
+  display:block; width:100%; margin-top:6px; padding:10px 12px; border-radius:7px;
+  border:1px solid var(--line); background:var(--bg); color:var(--ink); font:inherit; font-size:14px;
+  text-transform:none; letter-spacing:normal; font-weight:400;
+}
+.modal-field input:focus, .modal-field textarea:focus{ outline:2px solid var(--accent); outline-offset:1px; }
+.modal-field textarea{ resize:vertical; min-height:90px; }
+.hp-field{ position:absolute; left:-9999px; opacity:0; pointer-events:none; }
+.modal-submit{ width:100%; justify-content:center; margin-top:4px; color:#1a1206; }
+.modal-status{ margin-top:10px; font-size:13px; min-height:16px; text-align:center; }
+.modal-status.ok{ color:#3a8a4d; }
+.modal-status.err{ color:#c0422a; }
+@media print{ .modal-overlay{ display:none !important; } }
+
+/* ---------- Visit counter (padlock-dial style) ---------- */
+.foot-note-row{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px 20px; margin-top:26px; }
+footer .foot-note{ margin-top:0; }
+.visit-counter{ display:flex; align-items:center; gap:8px; }
+.visit-counter[hidden]{ display:none; }
+.visit-counter-label{ font-family:var(--font-mono); font-size:10.5px; color:#8b939c; text-transform:uppercase; letter-spacing:.08em; }
+.dial{ display:flex; gap:2px; }
+.dial-digit{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:16px; height:22px; border-radius:3px; font-family:var(--font-mono); font-weight:700; font-size:13px;
+  color:#f2e4c8;
+  background:linear-gradient(180deg,#3a3226,#17130d 55%,#0c0a07);
+  border:1px solid #55483080;
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.18), inset 0 -2px 3px rgba(0,0,0,.6), 0 1px 0 rgba(255,255,255,.05);
+  position:relative;
+}
+.dial-digit::after{
+  content:""; position:absolute; left:2px; right:2px; top:50%; height:1px;
+  background:rgba(0,0,0,.5); transform:translateY(-.5px);
+}
+@media print{ .visit-counter{ display:none !important; } }

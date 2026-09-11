@@ -39,7 +39,7 @@
       <a href="#skills">Skills</a>
       <a href="#background">Background</a>
       <a href="Abdullah_Fouze_Portfolio.pdf" download>Download Portfolio</a>
-      <a class="btn-primary topnav-cta" href="https://wa.me/966532572718" target="_blank" rel="noopener">Message</a>
+      <button type="button" class="btn-primary topnav-cta" id="contactOpenDesktop">Contact</button>
     </div>
     <div class="theme-toggle" id="themeToggle" role="group" aria-label="Light or dark mode">
       <button class="theme-btn" data-theme-choice="light" aria-label="Light mode" type="button">
@@ -63,7 +63,7 @@
     <a href="#skills">Skills</a>
     <a href="#background">Background</a>
     <a href="Abdullah_Fouze_Portfolio.pdf" download>Download Portfolio</a>
-    <a class="btn-primary" href="https://wa.me/966532572718" target="_blank" rel="noopener">Message</a>
+    <button type="button" class="btn-primary" id="contactOpenMobile">Contact</button>
   </div>
 </nav>
 
@@ -496,8 +496,39 @@
     </div>
     <a class="btn-primary" href="https://wa.me/966532572718" target="_blank" rel="noopener">Message on WhatsApp →</a>
   </div>
-  <div class="wrap foot-note">Abdullah Fouze · Jeddah, Saudi Arabia · Portfolio compiled 2026</div>
+  <div class="wrap foot-note-row">
+    <div class="foot-note">Abdullah Fouze · Jeddah, Saudi Arabia · Portfolio compiled 2026</div>
+    <div class="visit-counter" id="visitCounter" aria-label="Portfolio visit counter" hidden>
+      <span class="visit-counter-label">Visits</span>
+      <span class="dial" id="visitDial"></span>
+    </div>
+  </div>
 </footer>
+
+<div class="modal-overlay" id="contactOverlay" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
+    <button type="button" class="modal-close" id="contactClose" aria-label="Close">&times;</button>
+    <h3 id="contactTitle">Get in Touch</h3>
+    <p class="modal-sub">Send a message straight to Abdullah's inbox.</p>
+    <form id="contactForm">
+      <input type="checkbox" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off">
+      <label class="modal-field">
+        <span>Your Email</span>
+        <input type="email" name="email" required placeholder="you@example.com">
+      </label>
+      <label class="modal-field">
+        <span>Subject</span>
+        <input type="text" name="subject" required placeholder="What's this about?">
+      </label>
+      <label class="modal-field">
+        <span>Message</span>
+        <textarea name="message" rows="5" required placeholder="Write your message..."></textarea>
+      </label>
+      <button type="submit" class="btn-primary modal-submit" id="contactSubmit">Send Message</button>
+      <div class="modal-status" id="contactStatus" aria-live="polite"></div>
+    </form>
+  </div>
+</div>
 
 <script>
 // ---------- Capture mode (used only when generating the download PDF) ----------
@@ -682,6 +713,101 @@ var CAPTURE_MODE = /(?:^|[?&])capture=1(?:&|$)/.test(location.search);
     });
   }, { threshold:0.5 });
   parsed.forEach(function(item){ obs.observe(item.el); });
+})();
+
+// ---------- Contact dialog ----------
+(function(){
+  var WEB3FORMS_ACCESS_KEY = "REPLACE_WITH_WEB3FORMS_ACCESS_KEY";
+  var overlay = document.getElementById('contactOverlay');
+  var openBtns = [document.getElementById('contactOpenDesktop'), document.getElementById('contactOpenMobile')];
+  var closeBtn = document.getElementById('contactClose');
+  var form = document.getElementById('contactForm');
+  var status = document.getElementById('contactStatus');
+  var submitBtn = document.getElementById('contactSubmit');
+  if(!overlay || !form) return;
+  var lastFocused = null;
+
+  function openModal(){
+    lastFocused = document.activeElement;
+    overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+    var firstField = form.querySelector('input[type="email"]');
+    if(firstField) firstField.focus();
+  }
+  function closeModal(){
+    overlay.hidden = true;
+    document.body.style.overflow = '';
+    if(lastFocused && lastFocused.focus) lastFocused.focus();
+  }
+  openBtns.forEach(function(btn){ if(btn) btn.addEventListener('click', openModal); });
+  if(closeBtn) closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e){ if(e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !overlay.hidden) closeModal(); });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(form.botcheck && form.botcheck.checked) return;
+    status.textContent = 'Sending...';
+    status.className = 'modal-status';
+    submitBtn.disabled = true;
+
+    var payload = {
+      access_key: WEB3FORMS_ACCESS_KEY,
+      subject: form.subject.value,
+      email: form.email.value,
+      message: form.message.value,
+      from_name: 'Portfolio Contact Form',
+    };
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload),
+    })
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        submitBtn.disabled = false;
+        if(data.success){
+          status.textContent = 'Message sent. Thank you!';
+          status.className = 'modal-status ok';
+          form.reset();
+          setTimeout(closeModal, 1600);
+        } else {
+          status.textContent = 'Something went wrong. Please try again or email directly.';
+          status.className = 'modal-status err';
+        }
+      })
+      .catch(function(){
+        submitBtn.disabled = false;
+        status.textContent = 'Network error. Please try again or email directly.';
+        status.className = 'modal-status err';
+      });
+  });
+})();
+
+// ---------- Visit counter (padlock-dial style) ----------
+(function(){
+  var wrap = document.getElementById('visitCounter');
+  var dial = document.getElementById('visitDial');
+  if(!wrap || !dial || CAPTURE_MODE) return;
+
+  fetch('https://api.countapi.xyz/hit/abdullahfouze-portfolio/visits')
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      var n = data && typeof data.value === 'number' ? data.value : null;
+      if(n === null) return;
+      var digits = String(n);
+      if(digits.length < 3) digits = ('000' + digits).slice(-3);
+      dial.innerHTML = '';
+      digits.split('').forEach(function(ch){
+        var s = document.createElement('span');
+        s.className = 'dial-digit';
+        s.textContent = ch;
+        dial.appendChild(s);
+      });
+      wrap.hidden = false;
+    })
+    .catch(function(){ /* counter service unavailable: stay hidden */ });
 })();
 </script>
 
