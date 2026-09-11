@@ -339,7 +339,12 @@ main{ position:relative; }
 .logo-slot a:hover{ transform:scale(1.06); }
 .logo-slot a:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; border-radius:4px; }
 
-.role-body{ display:grid; grid-template-columns:1fr; gap:22px; }
+/* Plain block flow, not grid: Chromium's print/PDF engine treats a grid
+   container as a single unbreakable unit, so when one didn't fit the
+   remaining page space it jumped whole to the next page, stranding the
+   role header behind with a blank gap. Block layout fragments normally. */
+.role-body{ display:block; }
+.role-body > * + *{ margin-top:22px; }
 .role-copy{ font-size:15px; color:var(--ink-soft); text-align:justify; text-justify:inter-word; hyphens:auto; }
 .role-copy p{ margin:0 0 12px; }
 .role-copy p:last-child{ margin-bottom:0; }
@@ -352,6 +357,13 @@ main{ position:relative; }
 .role-copy li{ position:relative; margin:0 0 9px; }
 .role-copy li:last-child{ margin-bottom:0; }
 .role-copy li::before{ content:""; position:absolute; left:-16px; top:.6em; width:6px; height:6px; border-radius:50%; background:var(--accent); }
+
+/* Bullets stay left-aligned live (justifying short wrapped lines in a
+   narrow box can create uneven word gaps on screen); the downloadable
+   PDF has more width to work with, so justify there for a cleaner edge. */
+@media print{
+  .role-copy ul{ text-align:justify; text-justify:inter-word; hyphens:auto; }
+}
 
 .sub-role{ margin-top:18px; padding-top:16px; border-top:1px dashed var(--line); }
 .sub-role .sub-dates{ font-family:var(--font-mono); font-size:11.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.05em;}
