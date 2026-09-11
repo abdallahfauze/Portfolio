@@ -532,3 +532,49 @@ footer .foot-note{ margin-top:0; }
   background:rgba(0,0,0,.5); transform:translateY(-.5px);
 }
 @media print{ .visit-counter{ display:none !important; } }
+
+/* ---------- Print/PDF pagination fixes ----------
+   Chromium's print engine treats a CSS Grid container as a single
+   unbreakable unit: if the whole thing doesn't fit in the remaining
+   page space, it jumps entirely to the next page instead of letting
+   its rows flow, stranding whatever came right before it (a heading,
+   a role header) behind a large blank gap. It also happily slices a
+   plain bordered box in half across a page boundary, since nothing
+   tells it not to. Both bugs showed up across the multi-column grids
+   below (photo galleries, the GOS flagship client cards, app cards,
+   skill tiles, the closing cards) and in individual bordered boxes.
+   For print only: switch each of these grids to a floated layout,
+   which Chromium *does* fragment correctly, and mark every card/
+   tile/photo break-inside:avoid so it moves to the next page as a
+   whole instead of being cut mid-box. The live site keeps its normal
+   CSS Grid layout untouched. */
+@media print{
+  .gallery, .mini-projects, .app-grid, .closing-grid, .tile-grid{
+    display:block;
+  }
+  .gallery::after, .mini-projects::after, .app-grid::after,
+  .closing-grid::after, .tile-grid::after{
+    content:""; display:block; clear:both;
+  }
+
+  .gallery .gph{ float:left; width:31.3%; margin:0 3% 10px 0; break-inside:avoid; }
+  .gallery .gph:nth-child(3n){ margin-right:0; }
+
+  .gallery.g2 .gph{ float:left; width:48%; margin:0 4% 10px 0; break-inside:avoid; }
+  .gallery.g2 .gph:nth-child(2n){ margin-right:0; }
+
+  .mini-projects .mini-proj{ float:left; width:48%; margin:0 4% 10px 0; break-inside:avoid; }
+  .mini-projects .mini-proj:nth-child(2n){ margin-right:0; }
+
+  .app-grid .app-card{ float:left; width:48%; margin:0 4% 16px 0; break-inside:avoid; }
+  .app-grid .app-card:nth-child(2n){ margin-right:0; }
+
+  .closing-grid .closing-card{ float:left; width:31.3%; margin:0 3% 0 0; break-inside:avoid; }
+  .closing-grid .closing-card:nth-child(3n){ margin-right:0; }
+
+  .tile-grid .tile{ float:left; width:48%; margin:0 4% 12px 0; break-inside:avoid; }
+  .tile-grid .tile:nth-child(2n){ margin-right:0; }
+
+  .role-copy ul, .metric{ break-inside:avoid; }
+  .role-head{ break-after:avoid; }
+}
