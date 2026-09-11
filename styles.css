@@ -433,7 +433,12 @@ main{ position:relative; }
 .closing-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
 @media (max-width:760px){ .closing-grid{ grid-template-columns:1fr; } }
 .closing h3{ font-family:var(--font-display); font-weight:500; text-transform:uppercase; font-size:14px; letter-spacing:.08em; margin:0 0 12px; color:var(--accent); }
+.closing-card{
+  border:1px solid var(--line); border-radius:10px; padding:20px 22px; background:var(--surface);
+  box-shadow:var(--shadow);
+}
 .closing .item{ margin-bottom:10px; font-size:14px; }
+.closing .item:last-child{ margin-bottom:0; }
 .closing .item .t1{ font-weight:700; }
 .closing .item .t2{ color:var(--ink-faint); font-size:12.5px; font-family:var(--font-mono); }
 
@@ -499,7 +504,6 @@ button.btn-primary{ font-family:var(--font-display); text-transform:uppercase; b
 footer .foot-note{ margin-top:0; }
 .visit-counter{ display:flex; align-items:center; gap:8px; }
 .visit-counter[hidden]{ display:none; }
-.visit-counter-label{ font-family:var(--font-mono); font-size:10.5px; color:#8b939c; text-transform:uppercase; letter-spacing:.08em; }
 .dial{ display:flex; gap:2px; }
 .dial-digit{
   display:inline-flex; align-items:center; justify-content:center;
