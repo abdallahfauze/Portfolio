@@ -449,7 +449,7 @@ footer::before{
   content:""; position:absolute; inset:0; z-index:0;
   background-image:url('img/footer-bg.jpg');
   background-size:cover; background-position:center center;
-  opacity:.18; mix-blend-mode:screen; pointer-events:none;
+  opacity:.13; mix-blend-mode:screen; pointer-events:none;
 }
 footer .wrap{ position:relative; z-index:1; }
 footer .foot-grid{ display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:24px; }
