@@ -11,9 +11,11 @@
 <link rel="stylesheet" href="styles.css">
 <script>
 // Applied before first paint so there's no flash of the wrong theme on load.
+// Dark is the default; a visitor only gets light if they've explicitly
+// chosen it before (stored by the toggle below).
 (function(){
   try{
-    if(localStorage.getItem('af-theme') === 'dark'){
+    if(localStorage.getItem('af-theme') !== 'light'){
       document.documentElement.setAttribute('data-theme', 'dark');
     }
   }catch(e){}
@@ -38,7 +40,7 @@
       <a href="#experience">Experience</a>
       <a href="#skills">Skills</a>
       <a href="#background">Background</a>
-      <a href="Abdullah_Fouze_Portfolio.pdf" download>Download Portfolio</a>
+      <a href="Abdullah_Fouze_Portfolio.pdf" download class="download-portfolio-link">Download Portfolio</a>
       <button type="button" class="btn-primary topnav-cta" id="contactOpenDesktop">Contact</button>
     </div>
     <div class="theme-toggle" id="themeToggle" role="group" aria-label="Light or dark mode">
@@ -62,7 +64,7 @@
     <a href="#experience">Experience</a>
     <a href="#skills">Skills</a>
     <a href="#background">Background</a>
-    <a href="Abdullah_Fouze_Portfolio.pdf" download>Download Portfolio</a>
+    <a href="Abdullah_Fouze_Portfolio.pdf" download class="download-portfolio-link">Download Portfolio</a>
     <button type="button" class="btn-primary" id="contactOpenMobile">Contact</button>
   </div>
 </nav>
@@ -551,11 +553,16 @@ var CAPTURE_MODE = /(?:^|[?&])capture=1(?:&|$)/.test(location.search);
   var btns = Array.prototype.slice.call(toggle.querySelectorAll('.theme-btn'));
   var root = document.documentElement;
 
+  var downloadLinks = Array.prototype.slice.call(document.querySelectorAll('.download-portfolio-link'));
+
   function apply(mode){
     if(mode === 'dark'){ root.setAttribute('data-theme', 'dark'); }
     else { root.removeAttribute('data-theme'); }
     btns.forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-theme-choice') === mode); });
     try{ localStorage.setItem('af-theme', mode); }catch(e){}
+    // Downloadable PDF matches whichever theme the visitor is currently viewing.
+    var pdfHref = mode === 'dark' ? 'Abdullah_Fouze_Portfolio_Dark.pdf' : 'Abdullah_Fouze_Portfolio.pdf';
+    downloadLinks.forEach(function(a){ a.setAttribute('href', pdfHref); });
   }
 
   // Sync button state to whatever the pre-paint inline script in <head> already set.
