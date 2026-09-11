@@ -112,7 +112,7 @@
   <!-- ===================== DUKAN ===================== -->
   <article class="role" id="dukan">
     <div class="role-head">
-      <div class="role-dates">JAN 2025<br>to<br>PRESENT</div>
+      <div class="role-dates">DEC 2023<br>to<br>PRESENT</div>
       <div class="role-titles">
         <div class="eyebrow">Current</div>
         <h2>Dukan Retailing Company</h2>
@@ -123,7 +123,7 @@
     </div>
     <div class="role-body">
       <div class="role-copy">
-        <p><strong>January 2025 – Present.</strong></p>
+        <p class="role-current-date">January 2025 to Present</p>
         <ul>
           <li>Lead facilities expansion, construction/fit-out delivery, and maintenance operations across <strong>170+ live, operating retail sites</strong> in Jeddah, Makkah, Madinah, Taif, and Yanbu.</li>
           <li>Report directly to the CEO; lead annual budgeting, resource planning, KPI setting, and performance management for projects and maintenance.</li>
@@ -159,10 +159,10 @@
       </div>
       <div class="gallery">
         <div class="gph"><img class="gph-base" src="img/dukan_1.jpg" alt="Dukan retail storefront 1"><img class="gph-color" src="img/dukan_1_color.jpg" alt="" aria-hidden="true"></div>
-        <div class="gph"><img class="gph-base" src="img/dukan_2.jpg" alt="Dukan retail storefront 2"><img class="gph-color" src="img/dukan_2_color.jpg" alt="" aria-hidden="true"></div>
+        <div class="gph"><img class="gph-base" src="img/dukan_5.jpg" alt="Dukan retail storefront 2"><img class="gph-color" src="img/dukan_5_color.jpg" alt="" aria-hidden="true"></div>
         <div class="gph"><img class="gph-base" src="img/dukan_3.jpg" alt="Dukan retail storefront 3"><img class="gph-color" src="img/dukan_3_color.jpg" alt="" aria-hidden="true"></div>
         <div class="gph"><img class="gph-base" src="img/dukan_4.jpg" alt="Dukan retail storefront 4"><img class="gph-color" src="img/dukan_4_color.jpg" alt="" aria-hidden="true"></div>
-        <div class="gph"><img class="gph-base" src="img/dukan_5.jpg" alt="Dukan retail storefront 5"><img class="gph-color" src="img/dukan_5_color.jpg" alt="" aria-hidden="true"></div>
+        <div class="gph"><img class="gph-base" src="img/dukan_2.jpg" alt="Dukan retail storefront 5"><img class="gph-color" src="img/dukan_2_color.jpg" alt="" aria-hidden="true"></div>
         <div class="gph"><img class="gph-base" src="img/dukan_6.jpg" alt="Dukan retail storefront 6"><img class="gph-color" src="img/dukan_6_color.jpg" alt="" aria-hidden="true"></div>
       </div>
     </div>
@@ -509,7 +509,7 @@
   <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
     <button type="button" class="modal-close" id="contactClose" aria-label="Close">&times;</button>
     <h3 id="contactTitle">Get in Touch</h3>
-    <p class="modal-sub">Send a message straight to Abdullah's inbox.</p>
+    <p class="modal-sub">Send a message to Abdullah.</p>
     <form id="contactForm">
       <input type="checkbox" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off">
       <label class="modal-field">
@@ -791,7 +791,7 @@ var CAPTURE_MODE = /(?:^|[?&])capture=1(?:&|$)/.test(location.search);
   var dial = document.getElementById('visitDial');
   if(!wrap || !dial || CAPTURE_MODE) return;
 
-  fetch('https://api.countapi.xyz/hit/abdullahfouze-portfolio/visits')
+  fetch('https://abacus.jasoncameron.dev/hit/abdullahfouze-portfolio/visits')
     .then(function(r){ return r.json(); })
     .then(function(data){
       var n = data && typeof data.value === 'number' ? data.value : null;

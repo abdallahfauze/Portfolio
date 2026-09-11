@@ -355,6 +355,7 @@ main{ position:relative; }
 
 .sub-role{ margin-top:18px; padding-top:16px; border-top:1px dashed var(--line); }
 .sub-role .sub-dates{ font-family:var(--font-mono); font-size:11.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.05em;}
+.role-copy .role-current-date{ font-family:var(--font-mono); font-size:11.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.05em; margin:0 0 10px; }
 .sub-role .sub-title{ font-weight:700; font-size:14.5px; margin:2px 0 6px; }
 
 /* stat chip row inside a role */
