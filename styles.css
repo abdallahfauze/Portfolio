@@ -448,7 +448,7 @@ footer{ position:relative; overflow:hidden; background:#0f1319; color:#e9ebee; p
 footer::before{
   content:""; position:absolute; inset:0; z-index:0;
   background-image:url('img/footer-bg.jpg');
-  background-size:cover; background-position:center 40%;
+  background-size:cover; background-position:center center;
   opacity:.08; mix-blend-mode:screen; pointer-events:none;
 }
 footer .wrap{ position:relative; z-index:1; }
