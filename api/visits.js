@@ -19,8 +19,11 @@ const KEY = 'portfolio:visits';
 const DEFAULT_SEED = 434;
 
 function redisConfig() {
-  const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+  // The integration names these after the prefix chosen when connecting it
+  // (KV_ by default; STORAGE_ is what the dashboard suggests).
+  const env = process.env;
+  const url = env.KV_REST_API_URL || env.STORAGE_REST_API_URL || env.UPSTASH_REDIS_REST_URL;
+  const token = env.KV_REST_API_TOKEN || env.STORAGE_REST_API_TOKEN || env.UPSTASH_REDIS_REST_TOKEN;
   return url && token ? { url: url.replace(/\/$/, ''), token } : null;
 }
 
