@@ -143,15 +143,11 @@ footer{ background:#121d21; }
 @media (max-width:900px){ .gauges{ grid-template-columns:1fr; } }
 
 /* ---------- 7. clickable-item cursor (links and buttons only) ----------
-   Three preview styles, picked with ?cursor=snap|grips|pen (snap is the default):
-     snap  - the crosshair box turns into an AutoCAD object-snap glyph with a
-             tooltip naming the action (circle = contact, square = company site,
-             triangle = page navigation)
-     grips - the hovered item gets an AutoCAD selection frame: dashed outline
-             with square grips on the corners
-     pen   - the crosshair hands over to a drafting pencil */
+   Over a link or button the crosshair box turns into an AutoCAD object-snap
+   glyph, with a tooltip naming the action: circle = contact,
+   square = company website, triangle = page navigation. */
 .cad-cursor.is-hot .cad-line{ background:rgba(var(--accent-on-dark-rgb),.85); }
-.cad-snap, .cad-tip, .cad-sel, .cad-pen{ position:fixed; top:0; left:0; pointer-events:none; display:none; }
+.cad-snap, .cad-tip{ position:fixed; top:0; left:0; pointer-events:none; display:none; }
 .cad-snap{ width:18px; height:18px; margin:-9px 0 0 -9px; }
 .cad-snap svg{ width:100%; height:100%; overflow:visible; }
 .cad-snap .g{ fill:rgba(var(--accent-on-dark-rgb),.18); stroke:var(--accent-on-dark); stroke-width:2;
@@ -162,12 +158,6 @@ footer{ background:#121d21; }
   background:rgba(18,29,33,.94); border:1px solid var(--accent-on-dark);
   box-shadow:0 4px 14px -4px rgba(0,0,0,.6);
 }
-.cad-sel{ border:1.5px dashed var(--accent-on-dark); border-radius:6px; box-shadow:0 0 16px -4px rgba(var(--accent-on-dark-rgb),.7); }
-.cad-sel i{ position:absolute; width:8px; height:8px; background:var(--accent-on-dark); border:1px solid #121d21; }
-.cad-sel i:nth-child(1){ top:-5px; left:-5px; } .cad-sel i:nth-child(2){ top:-5px; right:-5px; }
-.cad-sel i:nth-child(3){ bottom:-5px; left:-5px; } .cad-sel i:nth-child(4){ bottom:-5px; right:-5px; }
-.cad-pen{ width:30px; height:30px; margin:-29px 0 0 -1px; filter:drop-shadow(1px 2px 2px rgba(0,0,0,.45)); }
-.cad-pen svg{ width:100%; height:100%; }
 
 @media (prefers-reduced-motion: reduce){
   .tile, .app-card, .chip, .gauge, .stat{ transition:none !important; }

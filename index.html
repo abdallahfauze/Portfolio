@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Abdullah Fouze | Senior Projects &amp; Facilities Leader</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="description" content="Abdullah Fouze | Senior Projects &amp; Facilities Leader, Jeddah, Saudi Arabia. 14+ years directing multi-site maintenance operations, capital projects, and technical teams.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,8 +35,6 @@
   <div class="cad-box" id="cadBox"></div>
   <div class="cad-snap" id="cadSnap"></div>
   <div class="cad-tip" id="cadTip"></div>
-  <div class="cad-sel" id="cadSel"><i></i><i></i><i></i><i></i></div>
-  <div class="cad-pen" id="cadPen"><svg viewBox="0 0 30 30"><g transform="translate(1 29) rotate(-45)"><path d="M0 0 L7 -3.6 L7 3.6 Z" fill="#f2e6d6" stroke="#121d21" stroke-width="1"/><path d="M0 0 L2.6 -1.3 L2.6 1.3 Z" fill="#121d21"/><rect x="7" y="-3.6" width="24" height="7.2" rx="1" fill="#e2913f" stroke="#121d21" stroke-width="1"/><rect x="31" y="-3.6" width="5" height="7.2" rx="1.5" fill="#25363c" stroke="#121d21" stroke-width="1"/></g></svg></div>
 </div>
 
 <nav class="topnav">
@@ -643,19 +645,9 @@ var CAPTURE_MODE = /(?:^|[?&])capture=1(?:&|$)/.test(location.search);
   if(!cad || !h || !v || !box) return;
   var snap = document.getElementById('cadSnap');
   var tip = document.getElementById('cadTip');
-  var sel = document.getElementById('cadSel');
-  var pen = document.getElementById('cadPen');
   var lastX = window.innerWidth / 2, lastY = window.innerHeight / 2;
   // Only things you can actually click count as "hot": links and buttons.
   var hotSelector = 'a[href], button, [role="button"], input[type="submit"]';
-
-  // Preview: three hover styles for clickable items, chosen with ?cursor=
-  var MODES = ['snap', 'grips', 'pen'];
-  var mode = 'snap';
-  try{
-    var q = new URLSearchParams(location.search).get('cursor');
-    if(MODES.indexOf(q) >= 0) mode = q;
-  }catch(e){}
 
   // AutoCAD object-snap glyphs: circle = contact, square = company site, triangle = navigation
   var GLYPHS = {
@@ -690,22 +682,12 @@ var CAPTURE_MODE = /(?:^|[?&])capture=1(?:&|$)/.test(location.search);
     hotEl = el;
     cad.classList.toggle('is-hot', !!el);
     box.classList.toggle('cad-box-hot', !!el);
-    snap.style.display = tip.style.display = sel.style.display = pen.style.display = 'none';
-    h.style.display = v.style.display = box.style.display = '';
+    snap.style.display = tip.style.display = el ? 'block' : 'none';
+    box.style.display = el ? 'none' : '';
     if(!el) return;
     var d = describe(el);
-    if(mode === 'snap'){
-      if(d.kind !== hotKind){ snap.innerHTML = GLYPHS[d.kind]; hotKind = d.kind; }
-      tip.textContent = d.label;
-      box.style.display = 'none';
-      snap.style.display = tip.style.display = 'block';
-    } else if(mode === 'grips'){
-      box.style.display = 'none';
-      sel.style.display = 'block';
-    } else {
-      h.style.display = v.style.display = box.style.display = 'none';
-      pen.style.display = 'block';
-    }
+    if(d.kind !== hotKind){ snap.innerHTML = GLYPHS[d.kind]; hotKind = d.kind; }
+    tip.textContent = d.label;
   }
 
   function checkHotAt(x, y){
@@ -724,23 +706,12 @@ var CAPTURE_MODE = /(?:^|[?&])capture=1(?:&|$)/.test(location.search);
     box.style.left = lastX + 'px';
     checkHotAt(lastX, lastY);
     if(!hotEl) return;
-    if(mode === 'snap'){
-      snap.style.top = tip.style.top = lastY + 'px';
-      snap.style.left = tip.style.left = lastX + 'px';
-      // keep the tooltip on screen near the right and bottom edges
-      var flipX = lastX + tip.offsetWidth + 30 > window.innerWidth;
-      var flipY = lastY + tip.offsetHeight + 30 > window.innerHeight;
-      tip.style.transform = 'translate(' + (flipX ? 'calc(-100% - 32px)' : '0') + ',' + (flipY ? 'calc(-100% - 32px)' : '0') + ')';
-    } else if(mode === 'grips'){
-      var r = hotEl.getBoundingClientRect(), pad = 5;
-      sel.style.top = (r.top - pad) + 'px';
-      sel.style.left = (r.left - pad) + 'px';
-      sel.style.width = (r.width + pad * 2) + 'px';
-      sel.style.height = (r.height + pad * 2) + 'px';
-    } else {
-      pen.style.top = lastY + 'px';
-      pen.style.left = lastX + 'px';
-    }
+    snap.style.top = tip.style.top = lastY + 'px';
+    snap.style.left = tip.style.left = lastX + 'px';
+    // keep the tooltip on screen near the right and bottom edges
+    var flipX = lastX + tip.offsetWidth + 30 > window.innerWidth;
+    var flipY = lastY + tip.offsetHeight + 30 > window.innerHeight;
+    tip.style.transform = 'translate(' + (flipX ? 'calc(-100% - 32px)' : '0') + ',' + (flipY ? 'calc(-100% - 32px)' : '0') + ')';
   }
 
   cad.style.display = 'block';
