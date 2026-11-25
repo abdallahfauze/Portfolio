@@ -42,12 +42,8 @@
 /* ---------- dark bookends: near-black becomes deep teal ---------- */
 .topnav{ background:rgba(18,29,33,.94); }
 .topnav-mobile{ background:rgba(18,29,33,.98); }
-.hero{
-  background:
-    repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, transparent 1px 44px),
-    repeating-linear-gradient(90deg, rgba(255,255,255,.035) 0 1px, transparent 1px 44px),
-    linear-gradient(160deg,#203035,#121d21 78%);
-}
+/* no square gridlines here: they clashed with the CAD drawing in the hero background image */
+.hero{ background:linear-gradient(160deg,#203035,#121d21 78%); }
 footer{ background:#121d21; }
 
 /* ---------- 3. hero contact chips: raised pills on the teal hero ---------- */
