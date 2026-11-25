@@ -53,9 +53,24 @@ footer{ background:#121d21; }
 }
 .hero .chip:hover, .hero a.chip:hover{
   background:var(--book-raise); transform:translateY(-2px);
-  box-shadow:4px 4px 9px var(--book-lo), -3px -3px 8px var(--book-hi),
-             0 0 0 1.5px var(--accent-on-dark), 0 0 18px -3px rgba(var(--accent-on-dark-rgb),.6);
+  box-shadow:0 0 0 1.5px var(--accent-on-dark), 0 0 18px -3px rgba(var(--accent-on-dark-rgb),.6),
+             4px 4px 9px var(--book-lo), -3px -3px 8px var(--book-hi);
 }
+
+/* Hover rings are listed FIRST in every box-shadow below: the first shadow
+   paints on top, so a ring listed after the dark drop shadow got covered
+   along the bottom and right edge of each pill. */
+
+/* ---------- headline stats (14+, 170+, ...): four recessed wells ---------- */
+.stats{ background:var(--bg); border-bottom:0; padding:28px 0 6px; }
+.stats-grid{ gap:20px; }
+.stat, .stat:first-child{
+  border:0 !important; border-radius:20px; padding:22px 16px; background:var(--well);
+  display:flex; flex-direction:column; justify-content:center;
+  box-shadow:inset 4px 4px 9px var(--lo), inset -4px -4px 9px var(--hi); transition:box-shadow .25s ease;
+}
+.stat:hover{ box-shadow:0 0 0 1.5px var(--accent), 0 0 22px -4px var(--glow), inset 4px 4px 9px var(--lo), inset -4px -4px 9px var(--hi); }
+@media (max-width:760px){ .stats-grid{ gap:14px; } .stat{ padding:18px 10px; } }
 
 /* ---------- 4. skills / tools / building systems: raised pills ---------- */
 .tile-grid{ gap:14px; }
@@ -65,7 +80,7 @@ footer{ background:#121d21; }
 }
 .tile:hover{
   border:0; transform:translateY(-2px);
-  box-shadow:4px 4px 9px var(--lo), -4px -4px 9px var(--hi), 0 0 0 1.5px var(--accent), 0 0 20px -3px var(--glow);
+  box-shadow:0 0 0 1.5px var(--accent), 0 0 20px -3px var(--glow), 4px 4px 9px var(--lo), -4px -4px 9px var(--hi);
 }
 
 /* ---------- 5. systems & applications built: recessed wells ---------- */
@@ -77,7 +92,7 @@ footer{ background:#121d21; }
 .app-card::before{ display:none; }
 .app-card:hover{
   transform:none;
-  box-shadow:inset 3px 3px 8px var(--lo), inset -3px -3px 8px var(--hi), 0 0 0 1.5px var(--accent), 0 0 24px -4px var(--glow);
+  box-shadow:0 0 0 1.5px var(--accent), 0 0 24px -4px var(--glow), inset 3px 3px 8px var(--lo), inset -3px -3px 8px var(--hi);
 }
 /* the metric chips inside a well sit raised, so they read as values on a tray */
 .app-card .metric{
@@ -85,7 +100,7 @@ footer{ background:#121d21; }
   box-shadow:3px 3px 7px var(--lo), -3px -3px 7px var(--hi);
 }
 .app-card .metric:hover{
-  border:0; box-shadow:3px 3px 7px var(--lo), -3px -3px 7px var(--hi), 0 0 0 1.5px var(--accent), 0 0 18px -3px var(--glow);
+  border:0; box-shadow:0 0 0 1.5px var(--accent), 0 0 18px -3px var(--glow), 3px 3px 7px var(--lo), -3px -3px 7px var(--hi);
 }
 
 /* before -> after performance bars (recessed track, raised knob) */
@@ -114,7 +129,7 @@ footer{ background:#121d21; }
 .gauges{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:18px; }
 .gauge{ border-radius:20px; padding:16px 18px; display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:center;
   background:var(--well); box-shadow:inset 4px 4px 9px var(--lo), inset -4px -4px 9px var(--hi); transition:box-shadow .25s ease; }
-.gauge:hover{ box-shadow:inset 4px 4px 9px var(--lo), inset -4px -4px 9px var(--hi), 0 0 0 1.5px var(--accent), 0 0 22px -4px var(--glow); }
+.gauge:hover{ box-shadow:0 0 0 1.5px var(--accent), 0 0 22px -4px var(--glow), inset 4px 4px 9px var(--lo), inset -4px -4px 9px var(--hi); }
 .gauge-dial{ width:96px; height:96px; border-radius:50%; position:relative; display:grid; place-items:center; background:var(--raise);
   box-shadow:4px 4px 9px var(--lo), -4px -4px 9px var(--hi); }
 .gauge-dial svg{ position:absolute; inset:0; width:100%; height:100%; transform:rotate(-90deg); }
@@ -127,8 +142,35 @@ footer{ background:#121d21; }
 .gauge-txt b{ display:block; color:var(--ink); font-size:14px; margin-bottom:2px; }
 @media (max-width:900px){ .gauges{ grid-template-columns:1fr; } }
 
+/* ---------- 7. clickable-item cursor (links and buttons only) ----------
+   Three preview styles, picked with ?cursor=snap|grips|pen (snap is the default):
+     snap  - the crosshair box turns into an AutoCAD object-snap glyph with a
+             tooltip naming the action (circle = contact, square = company site,
+             triangle = page navigation)
+     grips - the hovered item gets an AutoCAD selection frame: dashed outline
+             with square grips on the corners
+     pen   - the crosshair hands over to a drafting pencil */
+.cad-cursor.is-hot .cad-line{ background:rgba(var(--accent-on-dark-rgb),.85); }
+.cad-snap, .cad-tip, .cad-sel, .cad-pen{ position:fixed; top:0; left:0; pointer-events:none; display:none; }
+.cad-snap{ width:18px; height:18px; margin:-9px 0 0 -9px; }
+.cad-snap svg{ width:100%; height:100%; overflow:visible; }
+.cad-snap .g{ fill:rgba(var(--accent-on-dark-rgb),.18); stroke:var(--accent-on-dark); stroke-width:2;
+  filter:drop-shadow(0 0 4px rgba(var(--accent-on-dark-rgb),.7)); }
+.cad-tip{
+  margin:16px 0 0 16px; padding:4px 8px; border-radius:4px; white-space:nowrap;
+  font:600 11px/1.2 var(--font-mono); letter-spacing:.04em; color:#e9eff1;
+  background:rgba(18,29,33,.94); border:1px solid var(--accent-on-dark);
+  box-shadow:0 4px 14px -4px rgba(0,0,0,.6);
+}
+.cad-sel{ border:1.5px dashed var(--accent-on-dark); border-radius:6px; box-shadow:0 0 16px -4px rgba(var(--accent-on-dark-rgb),.7); }
+.cad-sel i{ position:absolute; width:8px; height:8px; background:var(--accent-on-dark); border:1px solid #121d21; }
+.cad-sel i:nth-child(1){ top:-5px; left:-5px; } .cad-sel i:nth-child(2){ top:-5px; right:-5px; }
+.cad-sel i:nth-child(3){ bottom:-5px; left:-5px; } .cad-sel i:nth-child(4){ bottom:-5px; right:-5px; }
+.cad-pen{ width:30px; height:30px; margin:-29px 0 0 -1px; filter:drop-shadow(1px 2px 2px rgba(0,0,0,.45)); }
+.cad-pen svg{ width:100%; height:100%; }
+
 @media (prefers-reduced-motion: reduce){
-  .tile, .app-card, .chip, .gauge{ transition:none !important; }
+  .tile, .app-card, .chip, .gauge, .stat{ transition:none !important; }
 }
 } /* end @media screen */
 
