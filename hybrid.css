@@ -1,0 +1,167 @@
+/* =====================================================================
+   HYBRID THEME (preview branch)
+   Keeps the original layout and styling from styles.css and borrows a
+   few pieces of the soft UI preview:
+     - colours: Warm sand (light) and Deep teal (dark)
+     - raised pills: hero contact chips, skill / tool / building-system tiles
+     - recessed wells: "Systems & Applications Built" cards, with the
+       before -> after performance bars on the CAFM card
+     - round progress dials for the Dukan delivery KPIs
+   Screen only: print and the downloadable PDFs keep the original styling.
+   ===================================================================== */
+
+@media screen{
+
+:root{
+  /* Warm sand (light) */
+  --bg:#e9e6e2; --surface:#f4f1ee; --surface-2:#e1ddd9; --surface-3:#d7d1cc;
+  --ink:#24211f; --ink-soft:#5f5853; --ink-faint:#8a837d;
+  --line:#d2ccc6; --line-soft:#ddd8d3;
+  --accent:#c06a1f; --accent-rgb:192,106,31; --accent-2:#e08a3a; --accent-ink:#fffaf3; --accent-soft:#e9c79a;
+  --steel-soft:#dedad5;
+  --shadow:0 1px 2px rgba(60,40,20,.07), 0 8px 24px -12px rgba(60,40,20,.2);
+  /* soft-UI light and shadow pair for this ground */
+  --hi:#fffdfa; --lo:#c9c3bd; --raise:#ece9e6; --well:#e1ddd9;
+  --glow:rgba(var(--accent-rgb),.5);
+
+  /* the dark bookends (top bar, hero, footer) take the deep teal in both themes */
+  --book-hi:#25363c; --book-lo:#0d1518; --book-raise:#1f2e33;
+}
+:root[data-theme="dark"]{
+  /* Deep teal (dark) */
+  --bg:#18252a; --surface:#1f2e33; --surface-2:#121d21; --surface-3:#283a40;
+  --ink:#e9eff1; --ink-soft:#a8b6ba; --ink-faint:#7c8b90;
+  --line:#2c3f45; --line-soft:#223338;
+  --accent:#e2913f; --accent-rgb:226,145,63; --accent-2:#f0ad62; --accent-ink:#1a1206; --accent-soft:#4a3319;
+  --steel-soft:#223338;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px -14px rgba(0,0,0,.6);
+  --hi:#25363c; --lo:#0d1518; --raise:#1f2e33; --well:#121d21;
+  color-scheme:dark;
+}
+
+/* ---------- dark bookends: near-black becomes deep teal ---------- */
+.topnav{ background:rgba(18,29,33,.94); }
+.topnav-mobile{ background:rgba(18,29,33,.98); }
+/* no square gridlines here: they clashed with the CAD drawing in the hero background image */
+.hero{ background:linear-gradient(160deg,#203035,#121d21 78%); }
+footer{ background:#121d21; }
+
+/* ---------- 3. hero contact chips: raised pills on the teal hero ---------- */
+.hero .chip{
+  border:0; padding:10px 16px; color:#e9eff1; background:var(--book-raise);
+  box-shadow:4px 4px 9px var(--book-lo), -3px -3px 8px var(--book-hi);
+}
+.hero .chip:hover, .hero a.chip:hover{
+  background:var(--book-raise); transform:translateY(-2px);
+  box-shadow:0 0 0 1.5px var(--accent-on-dark), 0 0 18px -3px rgba(var(--accent-on-dark-rgb),.6),
+             4px 4px 9px var(--book-lo), -3px -3px 8px var(--book-hi);
+}
+
+/* Hover rings are listed FIRST in every box-shadow below: the first shadow
+   paints on top, so a ring listed after the dark drop shadow got covered
+   along the bottom and right edge of each pill. */
+
+/* ---------- headline stats (14+, 170+, ...): four recessed wells ---------- */
+.stats{ background:var(--bg); border-bottom:0; padding:28px 0 6px; }
+.stats-grid{ gap:20px; }
+.stat, .stat:first-child{
+  border:0 !important; border-radius:20px; padding:22px 16px; background:var(--well);
+  display:flex; flex-direction:column; justify-content:center;
+  box-shadow:inset 4px 4px 9px var(--lo), inset -4px -4px 9px var(--hi); transition:box-shadow .25s ease;
+}
+.stat:hover{ box-shadow:0 0 0 1.5px var(--accent), 0 0 22px -4px var(--glow), inset 4px 4px 9px var(--lo), inset -4px -4px 9px var(--hi); }
+@media (max-width:760px){ .stats-grid{ gap:14px; } .stat{ padding:18px 10px; } }
+
+/* ---------- 4. skills / tools / building systems: raised pills ---------- */
+.tile-grid{ gap:14px; }
+.tile{
+  border:0; border-radius:999px; padding:13px 20px; background:var(--raise);
+  box-shadow:4px 4px 9px var(--lo), -4px -4px 9px var(--hi);
+}
+.tile:hover{
+  border:0; transform:translateY(-2px);
+  box-shadow:0 0 0 1.5px var(--accent), 0 0 20px -3px var(--glow), 4px 4px 9px var(--lo), -4px -4px 9px var(--hi);
+}
+
+/* ---------- 5. systems & applications built: recessed wells ---------- */
+.app-grid{ gap:20px; }
+.app-card{
+  border:0; border-radius:20px; background:var(--well);
+  box-shadow:inset 3px 3px 8px var(--lo), inset -3px -3px 8px var(--hi);
+}
+.app-card::before{ display:none; }
+.app-card:hover{
+  transform:none;
+  box-shadow:0 0 0 1.5px var(--accent), 0 0 24px -4px var(--glow), inset 3px 3px 8px var(--lo), inset -3px -3px 8px var(--hi);
+}
+/* the metric chips inside a well sit raised, so they read as values on a tray */
+.app-card .metric{
+  border:0; border-radius:12px; background:var(--raise);
+  box-shadow:3px 3px 7px var(--lo), -3px -3px 7px var(--hi);
+}
+.app-card .metric:hover{
+  border:0; box-shadow:0 0 0 1.5px var(--accent), 0 0 18px -3px var(--glow), 3px 3px 7px var(--lo), -3px -3px 7px var(--hi);
+}
+
+/* before -> after performance bars (recessed track, raised knob) */
+.tracks{ display:grid; grid-template-columns:1fr; gap:16px; margin-top:18px; }
+.track-row{ display:grid; gap:8px; }
+.track-lbl{ display:flex; justify-content:space-between; gap:12px; font-size:12.5px; color:var(--ink-soft); }
+.track-val{ color:var(--ink); font-family:var(--font-mono); font-weight:700; font-size:13px; white-space:nowrap; }
+.track{
+  height:14px; border-radius:999px; position:relative; padding:3px; background:var(--well);
+  box-shadow:inset 2px 2px 5px var(--lo), inset -2px -2px 5px var(--hi);
+}
+.track .fill{ height:100%; border-radius:999px; background:linear-gradient(90deg, var(--accent-2), var(--accent)); width:var(--to); }
+.track .from{
+  position:absolute; top:50%; left:var(--from); width:2px; height:20px; transform:translate(-50%,-50%);
+  background:var(--ink-faint); border-radius:2px; opacity:.7;
+}
+.track .knob{
+  position:absolute; top:50%; left:var(--to); width:22px; height:22px; border-radius:50%; transform:translate(-50%,-50%);
+  background:var(--raise); box-shadow:3px 3px 7px var(--lo), -3px -3px 7px var(--hi), 0 0 10px -2px var(--glow);
+}
+.track-note{ font-size:11px; color:var(--ink-faint); }
+
+
+/* ---------- 6. round progress dials (Dukan delivery KPIs): recessed wells, raised dials ---------- */
+.kpi-panel{ display:grid; gap:20px; margin-top:26px; }
+.gauges{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:18px; }
+.gauge{ border-radius:20px; padding:16px 18px; display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:center;
+  background:var(--well); box-shadow:inset 4px 4px 9px var(--lo), inset -4px -4px 9px var(--hi); transition:box-shadow .25s ease; }
+.gauge:hover{ box-shadow:0 0 0 1.5px var(--accent), 0 0 22px -4px var(--glow), inset 4px 4px 9px var(--lo), inset -4px -4px 9px var(--hi); }
+.gauge-dial{ width:96px; height:96px; border-radius:50%; position:relative; display:grid; place-items:center; background:var(--raise);
+  box-shadow:4px 4px 9px var(--lo), -4px -4px 9px var(--hi); }
+.gauge-dial svg{ position:absolute; inset:0; width:100%; height:100%; transform:rotate(-90deg); }
+.gauge-dial .arc{ fill:none; stroke:var(--accent); stroke-width:9; stroke-linecap:round; filter:drop-shadow(0 0 4px var(--glow)); }
+.gauge-dial .bed{ fill:none; stroke:var(--well); stroke-width:9; }
+.gauge-face{ width:62px; height:62px; border-radius:50%; display:grid; place-items:center; position:relative; background:var(--raise);
+  box-shadow:3px 3px 6px var(--lo), -3px -3px 6px var(--hi); }
+.gauge-val{ font-family:var(--font-mono); font-weight:700; font-size:16px; color:var(--ink); font-variant-numeric:tabular-nums; }
+.gauge-txt{ font-size:13px; color:var(--ink-soft); line-height:1.4; }
+.gauge-txt b{ display:block; color:var(--ink); font-size:14px; margin-bottom:2px; }
+@media (max-width:900px){ .gauges{ grid-template-columns:1fr; } }
+
+/* ---------- 7. clickable-item cursor (links and buttons only) ----------
+   Over a link or button the crosshair box turns into an AutoCAD object-snap
+   glyph, with a tooltip naming the action: circle = contact,
+   square = company website, triangle = page navigation. */
+.cad-cursor.is-hot .cad-line{ background:rgba(var(--accent-on-dark-rgb),.85); }
+.cad-snap, .cad-tip{ position:fixed; top:0; left:0; pointer-events:none; display:none; }
+.cad-snap{ width:18px; height:18px; margin:-9px 0 0 -9px; }
+.cad-snap svg{ width:100%; height:100%; overflow:visible; }
+.cad-snap .g{ fill:rgba(var(--accent-on-dark-rgb),.18); stroke:var(--accent-on-dark); stroke-width:2;
+  filter:drop-shadow(0 0 4px rgba(var(--accent-on-dark-rgb),.7)); }
+.cad-tip{
+  margin:16px 0 0 16px; padding:4px 8px; border-radius:4px; white-space:nowrap;
+  font:600 11px/1.2 var(--font-mono); letter-spacing:.04em; color:#e9eff1;
+  background:rgba(18,29,33,.94); border:1px solid var(--accent-on-dark);
+  box-shadow:0 4px 14px -4px rgba(0,0,0,.6);
+}
+
+@media (prefers-reduced-motion: reduce){
+  .tile, .app-card, .chip, .gauge, .stat{ transition:none !important; }
+}
+} /* end @media screen */
+
+@media print{ .kpi-panel, .app-card .tracks{ display:none !important; } }
